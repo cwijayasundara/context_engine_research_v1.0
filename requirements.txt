@@ -1,6 +1,7 @@
 # Core LangChain stack
 deepagents[quickjs]>=0.6.0
 langchain[google-genai]>=0.3.0
+langchain-google-genai>=4.2.2
 langchain-openai>=0.2.0
 langchain-quickjs>=0.1.0          # REPL middleware (PTC + recursive workflows)
 langgraph>=0.2.0
