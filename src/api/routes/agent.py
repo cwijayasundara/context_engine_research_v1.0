@@ -35,8 +35,8 @@ def _select_agent_stream(
     current_runner=run_agent_stream,
     deep_runner=run_deep_agent_stream,
 ):
-    runtime = os.getenv("AGENT_RUNTIME", "current").strip().lower()
-    return deep_runner if runtime == "deepagents" else current_runner
+    runtime = os.getenv("AGENT_RUNTIME", "deepagents").strip().lower()
+    return current_runner if runtime in {"current", "legacy"} else deep_runner
 
 
 @router.post("/sessions")

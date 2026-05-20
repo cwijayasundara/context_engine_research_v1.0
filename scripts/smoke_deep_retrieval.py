@@ -1,8 +1,8 @@
-"""Smoke test the experimental Deep Agents retrieval runtime.
+"""Smoke test the Deep Agents retrieval runtime.
 
 Run from repo root:
 
-    AGENT_RUNTIME=deepagents GOOGLE_API_KEY=... python scripts/smoke_deep_retrieval.py
+    GOOGLE_API_KEY=... python scripts/smoke_deep_retrieval.py
 """
 from __future__ import annotations
 
@@ -17,8 +17,9 @@ QUESTION = "How much did I spend at Costco in 2025?"
 
 
 async def main() -> int:
-    if os.getenv("AGENT_RUNTIME") != "deepagents":
-        print("Set AGENT_RUNTIME=deepagents to smoke the Deep Agents runtime.", file=sys.stderr)
+    runtime = os.getenv("AGENT_RUNTIME", "deepagents").strip().lower()
+    if runtime in {"current", "legacy"}:
+        print("Unset AGENT_RUNTIME or set AGENT_RUNTIME=deepagents to smoke the Deep Agents runtime.", file=sys.stderr)
         return 2
     if not os.getenv("GOOGLE_API_KEY"):
         print("GOOGLE_API_KEY is required for the Gemini Deep Agents runtime.", file=sys.stderr)

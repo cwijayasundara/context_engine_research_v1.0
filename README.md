@@ -126,10 +126,10 @@ This wires up `src/api/agent_runner.py` (the chat agent), `src/ingestion/llm_nor
 
 To switch back to OpenAI, just unset `OPENAI_BASE_URL`.
 
-**Experimental Deep Agents 0.6 retrieval runtime**
+**Deep Agents 0.6 retrieval runtime**
 
-The default workbench chat still uses `src/api/agent_runner.py`. To try the
-additive Deep Agents 0.6 runtime without changing the default path:
+The default workbench chat uses the Deep Agents 0.6 retrieval runtime. Configure
+Gemini for that path with:
 
 ```bash
 AGENT_RUNTIME=deepagents
@@ -140,6 +140,8 @@ GOOGLE_API_KEY=<your Google AI Studio API key>
 This path uses the new `src/deep_retrieval/` package: Gemini-specific harness
 profile setup, QuickJS PTC middleware, schema-grounded Cypher guardrails, and
 Deep Agents v3 stream-event adaptation back to the current frontend SSE shape.
+Set `AGENT_RUNTIME=current` or `AGENT_RUNTIME=legacy` to use the previous
+`src/api/agent_runner.py` execution path.
 
 ### 4. Populate the graph, wiki, and fraud database
 
@@ -353,8 +355,10 @@ The frontend wrappers are in `web/lib/api.ts`:
 
 ## Agent And Graph Focus
 
-The workbench chat uses `src/api/agent_runner.py`, not the older
-`src/agent/main.py` path. The runner:
+The workbench chat defaults to the Deep Agents 0.6 retrieval runtime under
+`src/deep_retrieval/`. The older `src/api/agent_runner.py` path remains
+available with `AGENT_RUNTIME=current` or `AGENT_RUNTIME=legacy`; avoid the
+older `src/agent/main.py` path. The default runner:
 
 1. Plans which subagents to run.
 2. Runs scoped subagents:
@@ -365,9 +369,10 @@ The workbench chat uses `src/api/agent_runner.py`, not the older
 4. Emits `graph_highlight` ids from tool results.
 5. Records a `Decision` node linked to touched graph entities.
 
-An experimental Deep Agents 0.6 runtime now lives under `src/deep_retrieval/`
-and is selected only with `AGENT_RUNTIME=deepagents`. It is designed to become
-the retrieval-agent path after smoke tests and answer-quality comparisons.
+The Deep Agents 0.6 runtime lives under `src/deep_retrieval/` and is now the
+default retrieval-agent path. Set `AGENT_RUNTIME=current` or
+`AGENT_RUNTIME=legacy` to opt back into the previous `src/api/agent_runner.py`
+path.
 
 For scalar queries, the backend also infers graph highlights from the Cypher
 predicates. For example, a query about coffee in April 2026 can highlight:
