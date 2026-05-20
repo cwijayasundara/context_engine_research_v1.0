@@ -126,6 +126,21 @@ This wires up `src/api/agent_runner.py` (the chat agent), `src/ingestion/llm_nor
 
 To switch back to OpenAI, just unset `OPENAI_BASE_URL`.
 
+**Experimental Deep Agents 0.6 retrieval runtime**
+
+The default workbench chat still uses `src/api/agent_runner.py`. To try the
+additive Deep Agents 0.6 runtime without changing the default path:
+
+```bash
+AGENT_RUNTIME=deepagents
+DEEP_AGENT_MODEL=google_genai:gemini-3.5-flash
+GOOGLE_API_KEY=<your Google AI Studio API key>
+```
+
+This path uses the new `src/deep_retrieval/` package: Gemini-specific harness
+profile setup, QuickJS PTC middleware, schema-grounded Cypher guardrails, and
+Deep Agents v3 stream-event adaptation back to the current frontend SSE shape.
+
 ### 4. Populate the graph, wiki, and fraud database
 
 These four steps populate the system end-to-end: ontology → graph data → LLM wiki → fraud alerts. Run them in order, from the repo root, with the venv active.
@@ -350,6 +365,10 @@ The workbench chat uses `src/api/agent_runner.py`, not the older
 4. Emits `graph_highlight` ids from tool results.
 5. Records a `Decision` node linked to touched graph entities.
 
+An experimental Deep Agents 0.6 runtime now lives under `src/deep_retrieval/`
+and is selected only with `AGENT_RUNTIME=deepagents`. It is designed to become
+the retrieval-agent path after smoke tests and answer-quality comparisons.
+
 For scalar queries, the backend also infers graph highlights from the Cypher
 predicates. For example, a query about coffee in April 2026 can highlight:
 
@@ -405,7 +424,8 @@ The PII layer uses:
 
 - `src/pii/filter.py`: Presidio plus regex matching for finance-specific tokens
 - `src/pii/vault.py`: process-local token vault
-- `src/retriever/pii_middleware.py`: middleware for the older DeepAgents path
+- `src/retriever/pii_middleware.py`: middleware for the older DeepAgents prototype path
+- `src/deep_retrieval/cypher_guard.py`: read-only, schema-grounded guardrails for Deep Agents graph retrieval
 
 The intended contract is that LLM-facing context receives stable tokens such
 as `<PERSON_01>` or `<ACCT_02>` instead of raw names/account identifiers.

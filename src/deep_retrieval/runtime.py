@@ -1,0 +1,39 @@
+"""Public Deep Agents runtime entry point."""
+from __future__ import annotations
+
+import os
+from collections.abc import AsyncIterator
+
+from src.deep_retrieval.builder import build_deep_agent
+from src.deep_retrieval.stream_adapter import adapt_stream_event
+
+
+async def run_deep_agent_stream(
+    question: str,
+    *,
+    history: list[dict] | None = None,
+) -> AsyncIterator[tuple[str, dict]]:
+    """Stream Deep Agents retrieval events through the existing SSE contract."""
+    if not os.getenv("GOOGLE_API_KEY") and not os.getenv("OPENAI_API_KEY"):
+        yield "error", {"message": "GOOGLE_API_KEY missing for Deep Agents Gemini runtime"}
+        return
+
+    yield "started", {"question": question, "runtime": "deepagents"}
+    try:
+        agent = build_deep_agent()
+        payload = {"messages": _messages(question, history or [])}
+        async for raw in agent.astream_events(payload, version="v3"):
+            for event in adapt_stream_event(raw):
+                yield event
+    except Exception as exc:
+        yield "error", {"message": f"deepagents: {exc.__class__.__name__}: {exc}"}
+
+
+def _messages(question: str, history: list[dict]) -> list[dict]:
+    messages = [
+        {"role": str(item.get("role", "user")), "content": str(item.get("content", ""))}
+        for item in history[-6:]
+        if item.get("content")
+    ]
+    messages.append({"role": "user", "content": question})
+    return messages

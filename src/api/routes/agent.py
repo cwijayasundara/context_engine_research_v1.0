@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 from collections.abc import AsyncIterator
 
 import logging
@@ -16,6 +17,7 @@ from sse_starlette.sse import EventSourceResponse, ServerSentEvent
 from src.api.agent_runner import run_agent_stream
 from src.api.decisions import write_decision
 from src.api.sessions import STORE
+from src.deep_retrieval.runtime import run_deep_agent_stream
 
 log = logging.getLogger(__name__)
 
@@ -26,6 +28,15 @@ class AskRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=2000)
     session_id: str | None = Field(None, description="Existing session to append to; "
                                                      "omit to create a new one.")
+
+
+def _select_agent_stream(
+    *,
+    current_runner=run_agent_stream,
+    deep_runner=run_deep_agent_stream,
+):
+    runtime = os.getenv("AGENT_RUNTIME", "current").strip().lower()
+    return deep_runner if runtime == "deepagents" else current_runner
 
 
 @router.post("/sessions")
@@ -57,7 +68,8 @@ async def ask(req: AskRequest) -> EventSourceResponse:
 
         wire_t0 = time.perf_counter()
         bytes_out = 0
-        async for name, data in run_agent_stream(req.question, history=history):
+        runner = _select_agent_stream()
+        async for name, data in runner(req.question, history=history):
             captured.append((name, data))
             try:
                 payload = json.dumps(data, default=str)
