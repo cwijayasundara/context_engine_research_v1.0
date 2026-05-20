@@ -1,0 +1,87 @@
+---
+account_id: "<ACCT_01>"
+account_type: "current"
+institution: "Halifax"
+period_start: "2025-04-01"
+period_end: "2025-04-30"
+---
+
+# Halifax — REWARD CURRENT ACCOUNT
+
+Document requested by: <PERSON_01> <ADDRESS_01>
+
+Sort Code: <SORTCODE_01> | Account Number: <ACCT_01>
+
+## 01 April 2025 to 30 April 2025
+
+Balance on 01 April 2025: £13,774.20
+Money In: £7,326.68
+Money Out: £5,706.44
+Balance on 30 April 2025: £15,394.44
+
+## Your Transactions
+
+| Date | Description | Amount | Balance |
+|------|-------------|--------|---------|
+| 2025-04-01 | WATFORD BOROUGH COUNCIL (DD) | -342.89 | 13431.31 |
+| 2025-04-01 | E.ON NEXT LTD (DD) | -187.42 | 13243.89 |
+| 2025-04-01 | AFFINITY WATER (DD) | -65.00 | 13178.89 |
+| 2025-04-01 | HOME INSURANCE LBIS (DD) | -36.94 | 13141.95 |
+| 2025-04-01 | SCOTTISH WIDOWS PENSION (DD) | -57.42 | 13084.53 |
+| 2025-04-01 | SCOTTISH WIDOWS LIFE (DD) | -30.99 | 13053.54 |
+| 2025-04-01 | TV LICENCE QBP1 (DD) | -14.17 | 13039.37 |
+| 2025-04-01 | SWALE HEATING LTD (DD) | -14.17 | 13025.20 |
+| 2025-04-01 | WWF UK (DD) | -3.00 | 13022.20 |
+| 2025-04-01 | CREATION CONSUMER FIN (DD) | -90.94 | 12931.26 |
+| 2025-04-01 | TESCO STORES 3372 WATFORD (DEB) | -24.68 | 12906.58 |
+| 2025-04-01 | SAVETHECHANGE-6366 (BP) | -1.57 | 12905.01 |
+| 2025-04-01 | INTEREST (GROSS) () | 13.77 | 12918.78 |
+| 2025-04-02 | NETFLIX.COM (DEB) | -12.99 | 12905.79 |
+| 2025-04-03 | SHELL CROXLEY 191 (DEB) | -58.40 | 12847.39 |
+| 2025-04-04 | ADMIRAL MOTOR INSURANCE (DD) | -90.20 | 12757.19 |
+| 2025-04-04 | SAVETHECHANGE-6366 (BP) | -0.75 | 12756.44 |
+| 2025-04-04 | SAVETHECHANGE-6366 (BP) | -0.18 | 12756.26 |
+| 2025-04-05 | SAINSBURYS S/MKTS WATFORD (DEB) | -41.27 | 12714.99 |
+| 2025-04-05 | SAVETHECHANGE-6366 (BP) | -0.67 | 12714.32 |
+| 2025-04-05 | SAVETHECHANGE-6366 (BP) | -0.91 | 12713.41 |
+| 2025-04-07 | NATIONWIDE BS MORTGAGE (DD) | -1485.00 | 11228.41 |
+| 2025-04-07 | HALIFAX CREDIT CARD (DD) | -1657.44 | 9570.97 |
+| 2025-04-07 | PAYPAL *JUSTEATCOUK (DEB) | -19.86 | 9551.11 |
+| 2025-04-09 | SPOTIFY UK (DEB) | -10.99 | 9540.12 |
+| 2025-04-10 | ADMIRAL HOME INSURANCE (DD) | -92.44 | 9447.68 |
+| 2025-04-11 | WM MORRISONS STORE 586 (DEB) | -33.14 | 9414.54 |
+| 2025-04-12 | SAVETHECHANGE-6366 (BP) | -0.56 | 9413.98 |
+| 2025-04-13 | ALLI BHAVAN WATFORD (DEB) | -28.50 | 9385.48 |
+| 2025-04-14 | VODAFONE LTD DEVICE (DD) | -31.00 | 9354.48 |
+| 2025-04-15 | VODAFONE LTD (DD) | -86.27 | 9268.21 |
+| 2025-04-15 | EE LIMITED MOBILE (DD) | -28.50 | 9239.71 |
+| 2025-04-15 | TESCO STORES 6753 WATFORD (DEB) | -76.82 | 9162.89 |
+| 2025-04-17 | UBER EATS (DEB) | -22.75 | 9140.14 |
+| 2025-04-19 | BOOTS WATFORD (DEB) | -18.45 | 9121.69 |
+| 2025-04-20 | SAVETHECHANGE-6366 (BP) | -1.37 | 9120.32 |
+| 2025-04-21 | COSTCO PFS - WATFORD (DEB) | -67.93 | 9052.39 |
+| 2025-04-21 | SAVETHECHANGE-6366 (BP) | -1.15 | 9051.24 |
+| 2025-04-23 | PAYPAL *DISNEYPLUS (DEB) | -9.99 | 9041.25 |
+| 2025-04-24 | SAVETHECHANGE-6366 (BP) | -1.06 | 9040.19 |
+| 2025-04-25 | <PERSON_02> SAVINGS (SO) | -800.00 | 8240.19 |
+| 2025-04-25 | B&M 828 WATFORD (DEB) | -14.76 | 8225.43 |
+| 2025-04-26 | SAVETHECHANGE-6366 (BP) | -1.13 | 8224.30 |
+| 2025-04-27 | MARKS & SPENCER PLC (DEB) | -52.38 | 8171.92 |
+| 2025-04-27 | SAVETHECHANGE-6366 (BP) | -0.19 | 8171.73 |
+| 2025-04-28 | VIRGIN MEDIA PYMTS (DD) | -56.50 | 8115.23 |
+| 2025-04-28 | AMAZON.CO.UK (DEB) | -31.24 | 8083.99 |
+| 2025-04-28 | SAVETHECHANGE-6366 (BP) | -1.31 | 8082.68 |
+| 2025-04-29 | SAVETHECHANGE-6366 (BP) | -1.15 | 8081.53 |
+| 2025-04-30 | ACME INDUSTRIES SALARY (BGC) | 7312.91 | 15394.44 |
+
+## Transaction types
+
+BGC: Bank Giro Credit | BP: Bill Payment | CHG: Charge | CHQ: Cheque |
+COR: Correction | CPT: Cashpoint | DD: Direct Debit | DEB: Debit Card |
+DEP: Deposit | FEE: Fixed Service | FPI: Faster Payment In |
+FPO: Faster Payment Out | MPI: Mobile Payment In | MPO: Mobile Payment Out |
+PAY: Payment | SO: Standing Order | TFR: Transfer
+
+If you think something is incorrect, please contact us on <PHONE_01>.
+
+Halifax is a division of Bank of Scotland plc. (Synthetic sample — not a real statement.)

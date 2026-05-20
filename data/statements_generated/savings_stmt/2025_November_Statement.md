@@ -1,0 +1,84 @@
+---
+account_id: "<ACCT_01>"
+account_type: "current"
+institution: "Halifax"
+period_start: "2025-11-01"
+period_end: "2025-11-30"
+---
+
+# Halifax — REWARD CURRENT ACCOUNT
+
+Document requested by: <PERSON_01> <ADDRESS_01>
+
+Sort Code: <SORTCODE_01> | Account Number: <ACCT_01>
+
+## 01 November 2025 to 30 November 2025
+
+Balance on 01 November 2025: £25,390.84
+Money In: £7,338.30
+Money Out: £5,548.38
+Balance on 30 November 2025: £27,180.76
+
+## Your Transactions
+
+| Date | Description | Amount | Balance |
+|------|-------------|--------|---------|
+| 2025-11-01 | TESCO STORES 3372 WATFORD (DEB) | -68.42 | 25322.42 |
+| 2025-11-01 | INTEREST (GROSS) () | 25.39 | 25347.81 |
+| 2025-11-02 | SHELL CROXLEY 191 (DEB) | -58.73 | 25289.08 |
+| 2025-11-03 | WATFORD BOROUGH COUNCIL (DD) | -342.89 | 24946.19 |
+| 2025-11-03 | E.ON NEXT LTD (DD) | -187.42 | 24758.77 |
+| 2025-11-03 | AFFINITY WATER (DD) | -65.00 | 24693.77 |
+| 2025-11-03 | HOME INSURANCE LBIS (DD) | -36.94 | 24656.83 |
+| 2025-11-03 | SCOTTISH WIDOWS PENSION (DD) | -57.42 | 24599.41 |
+| 2025-11-03 | SCOTTISH WIDOWS LIFE (DD) | -30.99 | 24568.42 |
+| 2025-11-03 | TV LICENCE QBP1 (DD) | -14.17 | 24554.25 |
+| 2025-11-03 | SWALE HEATING LTD (DD) | -14.17 | 24540.08 |
+| 2025-11-03 | WWF UK (DD) | -3.00 | 24537.08 |
+| 2025-11-03 | CREATION CONSUMER FIN (DD) | -90.94 | 24446.14 |
+| 2025-11-03 | NETFLIX.COM (DEB) | -15.99 | 24430.15 |
+| 2025-11-04 | ADMIRAL MOTOR INSURANCE (DD) | -90.20 | 24339.95 |
+| 2025-11-04 | SAINSBURYS S/MKTS WATFORD (DEB) | -24.67 | 24315.28 |
+| 2025-11-04 | SAVETHECHANGE-6366 (BP) | -0.24 | 24315.04 |
+| 2025-11-06 | PAYPAL *JUSTEATCOUK (DEB) | -19.84 | 24295.20 |
+| 2025-11-06 | SAVETHECHANGE-6366 (BP) | -1.77 | 24293.43 |
+| 2025-11-07 | NATIONWIDE BS MORTGAGE (DD) | -1485.00 | 22808.43 |
+| 2025-11-07 | HALIFAX CREDIT CARD (DD) | -1440.49 | 21367.94 |
+| 2025-11-08 | SPOTIFY UK (DEB) | -11.99 | 21355.95 |
+| 2025-11-08 | SAVETHECHANGE-6366 (BP) | -1.84 | 21354.11 |
+| 2025-11-10 | ADMIRAL HOME INSURANCE (DD) | -92.44 | 21261.67 |
+| 2025-11-10 | MARKS & SPENCER PLC (DEB) | -42.18 | 21219.49 |
+| 2025-11-10 | SAVETHECHANGE-6366 (BP) | -0.34 | 21219.15 |
+| 2025-11-12 | UBER EATS (DEB) | -27.55 | 21191.60 |
+| 2025-11-12 | SAVETHECHANGE-6366 (BP) | -1.08 | 21190.52 |
+| 2025-11-14 | VODAFONE LTD DEVICE (DD) | -31.00 | 21159.52 |
+| 2025-11-14 | COSTCO PFS - WATFORD (DEB) | -64.11 | 21095.41 |
+| 2025-11-15 | SAVETHECHANGE-6366 (BP) | -0.62 | 21094.79 |
+| 2025-11-15 | SAVETHECHANGE-6366 (BP) | -0.66 | 21094.13 |
+| 2025-11-16 | BOOTS WATFORD (DEB) | -18.34 | 21075.79 |
+| 2025-11-17 | VODAFONE LTD (DD) | -86.27 | 20989.52 |
+| 2025-11-17 | EE LIMITED MOBILE (DD) | -28.50 | 20961.02 |
+| 2025-11-18 | ALLI BHAVAN WATFORD (DEB) | -31.76 | 20929.26 |
+| 2025-11-20 | WM MORRISONS STORE 586 (DEB) | -53.29 | 20875.97 |
+| 2025-11-22 | PAYPAL *DISNEYPLUS (DEB) | -7.99 | 20867.98 |
+| 2025-11-24 | B&M 828 WATFORD (DEB) | -22.45 | 20845.53 |
+| 2025-11-25 | <PERSON_02> SAVINGS (SO) | -800.00 | 20045.53 |
+| 2025-11-25 | SAVETHECHANGE-6366 (BP) | -0.56 | 20044.97 |
+| 2025-11-27 | AMAZON.CO.UK (DEB) | -14.97 | 20030.00 |
+| 2025-11-28 | VIRGIN MEDIA PYMTS (DD) | -56.50 | 19973.50 |
+| 2025-11-28 | ACME INDUSTRIES SALARY (BGC) | 7312.91 | 27286.41 |
+| 2025-11-29 | TESCO STORES 6753 WATFORD (DEB) | -91.63 | 27194.78 |
+| 2025-11-30 | PAYPAL *PYPL PAYIN (DEB) | -12.50 | 27182.28 |
+| 2025-11-30 | SAVETHECHANGE-6366 (BP) | -1.52 | 27180.76 |
+
+## Transaction types
+
+BGC: Bank Giro Credit | BP: Bill Payment | CHG: Charge | CHQ: Cheque |
+COR: Correction | CPT: Cashpoint | DD: Direct Debit | DEB: Debit Card |
+DEP: Deposit | FEE: Fixed Service | FPI: Faster Payment In |
+FPO: Faster Payment Out | MPI: Mobile Payment In | MPO: Mobile Payment Out |
+PAY: Payment | SO: Standing Order | TFR: Transfer
+
+If you think something is incorrect, please contact us on <PHONE_01>.
+
+Halifax is a division of Bank of Scotland plc. (Synthetic sample — not a real statement.)

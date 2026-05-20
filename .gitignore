@@ -35,11 +35,11 @@ Thumbs.db
 
 # Generated / cache
 data/.canonicalize_cache.json
-data/statements_generated/
 data/wiki/
 
 # Local-only deck / binary attachments (opt-in if you want them tracked)
 *.pptx
+!context_engine_v1.0.pptx
 
 # Logs
 *.log
