@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2024-12-13"
@@ -8,7 +8,7 @@ period_end: "2025-01-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 January 2025
 
@@ -30,7 +30,7 @@ period_end: "2025-01-12"
 | 2024-12-24 | APPLE.COM/BILL CORK IRL | -2.99 | -384.16 |
 | 2024-12-24 | VISION EXPRESS WATFORD | -24.99 | -409.15 |
 | 2024-12-25 | HELLOFRESH UK LONDON | -44.80 | -453.95 |
-| 2024-12-25 | PARENTPAY E-COM <PERSON_03> | -27.00 | -480.95 |
+| 2024-12-25 | PARENTPAY E-COM R Bridgwater | -27.00 | -480.95 |
 | 2024-12-25 | GOOGLE *YOUTUBEPREMIUM | -12.99 | -493.94 |
 | 2024-12-25 | TFL TRAVEL CH TFL.GOV.UK/CP | -16.20 | -510.14 |
 | 2024-12-27 | AMZNMKTPLACE*R66EF9ZC4 | -24.77 | -534.91 |
@@ -52,7 +52,7 @@ period_end: "2025-01-12"
 | 2025-01-07 | FOOT LOCKER INC 4237 | -74.95 | -1062.29 |
 | 2025-01-07 | TFL TRAVEL CH TFL.GOV.UK/CP | -14.10 | -1076.39 |
 | 2025-01-09 | TFL TRAVEL CH TFL.GOV.UK/CP | -11.90 | -1088.29 |
-| 2025-01-09 | PARENTPAY E-COM <PERSON_03> | -18.50 | -1106.79 |
+| 2025-01-09 | PARENTPAY E-COM R Bridgwater | -18.50 | -1106.79 |
 | 2025-01-10 | HELLOFRESH UK LONDON | -37.24 | -1144.03 |
 | 2025-01-11 | GITHUB, INC. SAN FRANCISCO CA | -9.00 | -1153.03 |
 | 2025-01-12 | TUTORFUL* SHEFFIELD | -36.50 | -1189.53 |
@@ -60,9 +60,9 @@ period_end: "2025-01-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,951.47 |
 | Next month's estimated interest | £30.84 |
@@ -85,4 +85,4 @@ Direct Debit of £1,248.53 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

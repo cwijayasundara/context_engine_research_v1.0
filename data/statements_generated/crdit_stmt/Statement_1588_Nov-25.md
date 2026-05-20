@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-10-13"
@@ -8,7 +8,7 @@ period_end: "2025-11-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 November 2025
 
@@ -18,7 +18,7 @@ period_end: "2025-11-12"
 |------|-------------|--------|---------|
 | 2025-10-13 | BALANCE FROM PREVIOUS STATEMENT | 0.00 | 1440.49 |
 | 2025-10-13 | DIRECT DEBIT PAYMENT - THANK YOU | 1440.49 | 0.00 |
-| 2025-10-13 | PARENTPAY E-COM <PERSON_03> | -28.50 | -28.50 |
+| 2025-10-13 | PARENTPAY E-COM R Bridgwater | -28.50 | -28.50 |
 | 2025-10-17 | TUTORFUL* SHEFFIELD | -42.00 | -70.50 |
 | 2025-10-17 | B & Q 1245 WATFORD | -33.17 | -103.67 |
 | 2025-10-17 | APPLE.COM/BILL CORK IRL | -14.99 | -118.66 |
@@ -31,7 +31,7 @@ period_end: "2025-11-12"
 | 2025-10-25 | PAYPAL *JUSTEATCOUK | -26.45 | -428.69 |
 | 2025-10-27 | HELLOFRESH UK LONDON | -62.40 | -491.09 |
 | 2025-10-27 | JAMAICA BLUE WATFORD | -29.80 | -520.89 |
-| 2025-10-27 | PARENTPAY E-COM <PERSON_03> | -36.00 | -556.89 |
+| 2025-10-27 | PARENTPAY E-COM R Bridgwater | -36.00 | -556.89 |
 | 2025-10-27 | TFL TRAVEL CH TFL.GOV.UK/CP | -17.60 | -574.49 |
 | 2025-10-28 | TESCO STORES 3372 | -97.12 | -671.61 |
 | 2025-10-28 | UBER *TRIP HELP.UBER.COM | -16.80 | -688.41 |
@@ -57,9 +57,9 @@ period_end: "2025-11-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,741.35 |
 | Next month's estimated interest | £36.03 |
@@ -82,4 +82,4 @@ Direct Debit of £1,458.65 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

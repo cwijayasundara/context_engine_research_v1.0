@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-04-12"
@@ -8,7 +8,7 @@ period_end: "2025-05-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 May 2025
 
@@ -37,7 +37,7 @@ period_end: "2025-05-12"
 | 2025-04-26 | AMAZON.CO.UK *R684K9ZJ4 | -34.92 | -713.04 |
 | 2025-04-27 | UNIQLO WATFORD | -39.95 | -752.99 |
 | 2025-04-27 | JAMAICA BLUE WATFORD | -27.45 | -780.44 |
-| 2025-04-28 | PARENTPAY E-COM <PERSON_03> | -38.00 | -818.44 |
+| 2025-04-28 | PARENTPAY E-COM R Bridgwater | -38.00 | -818.44 |
 | 2025-04-29 | PAYPAL *JUSTEATCOUK | -28.65 | -847.09 |
 | 2025-04-30 | JAMAICA BLUE WATFORD | -31.80 | -878.89 |
 | 2025-04-30 | TESCO STORES 3372 | -92.18 | -971.07 |
@@ -51,16 +51,16 @@ period_end: "2025-05-12"
 | 2025-05-08 | AWS EMEA AWS.AMAZON.CO LUX | -19.84 | -1206.37 |
 | 2025-05-08 | AMZNMKTPLACE*R66EF9ZC4 | -17.26 | -1223.63 |
 | 2025-05-09 | FOOT LOCKER INC 4237 | -67.50 | -1291.13 |
-| 2025-05-09 | PARENTPAY E-COM <PERSON_03> | -26.50 | -1317.63 |
+| 2025-05-09 | PARENTPAY E-COM R Bridgwater | -26.50 | -1317.63 |
 | 2025-05-11 | TUTORFUL* SHEFFIELD | -48.00 | -1365.63 |
 | 2025-05-12 | GITHUB, INC. SAN FRANCISCO CA | -8.00 | -1373.63 |
 | 2025-05-12 | TESCO STORES 3372 | -71.15 | -1444.78 |
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,755.22 |
 | Next month's estimated interest | £35.69 |
@@ -83,4 +83,4 @@ Direct Debit of £1,444.78 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-08-13"
@@ -8,7 +8,7 @@ period_end: "2025-09-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 September 2025
 
@@ -18,7 +18,7 @@ period_end: "2025-09-12"
 |------|-------------|--------|---------|
 | 2025-08-13 | BALANCE FROM PREVIOUS STATEMENT | 0.00 | 1944.45 |
 | 2025-08-13 | DIRECT DEBIT PAYMENT - THANK YOU | 1944.45 | 0.00 |
-| 2025-08-15 | PARENTPAY E-COM <PERSON_03> | -34.75 | -34.75 |
+| 2025-08-15 | PARENTPAY E-COM R Bridgwater | -34.75 | -34.75 |
 | 2025-08-15 | TFL TRAVEL CH TFL.GOV.UK/CP | -16.40 | -51.15 |
 | 2025-08-17 | FOOT LOCKER INC 4237 | -64.95 | -116.10 |
 | 2025-08-18 | SAINSBURY'S S/MKT WATFORD | -64.39 | -180.49 |
@@ -39,7 +39,7 @@ period_end: "2025-09-12"
 | 2025-08-29 | TUTORFUL* SHEFFIELD | -42.00 | -773.06 |
 | 2025-08-30 | SAINSBURY'S S/MKT WATFORD | -58.27 | -831.33 |
 | 2025-08-30 | AMAZON.CO.UK *R684K9ZJ4 | -32.44 | -863.77 |
-| 2025-09-01 | PARENTPAY E-COM <PERSON_03> | -38.50 | -902.27 |
+| 2025-09-01 | PARENTPAY E-COM R Bridgwater | -38.50 | -902.27 |
 | 2025-09-02 | GOOGLE *YOUTUBEPREMIUM | -12.99 | -915.26 |
 | 2025-09-02 | WELCOME BREAK NEWPORT PAGNE | -19.85 | -935.11 |
 | 2025-09-04 | TUTORFUL* SHEFFIELD | -36.00 | -971.11 |
@@ -51,7 +51,7 @@ period_end: "2025-09-12"
 | 2025-09-06 | APPLE.COM/BILL CORK IRL | -9.99 | -1183.84 |
 | 2025-09-06 | FOOT LOCKER INC 4237 | -79.99 | -1263.83 |
 | 2025-09-07 | TFL TRAVEL CH TFL.GOV.UK/CP | -14.80 | -1278.63 |
-| 2025-09-07 | PARENTPAY E-COM <PERSON_03> | -27.50 | -1306.13 |
+| 2025-09-07 | PARENTPAY E-COM R Bridgwater | -27.50 | -1306.13 |
 | 2025-09-07 | GITHUB, INC. SAN FRANCISCO CA | -10.00 | -1316.13 |
 | 2025-09-08 | OPENAI *CHATGPT SUBSCR | -20.00 | -1336.13 |
 | 2025-09-10 | AMZNMKTPLACE*R66EF9ZC4 | -18.32 | -1354.45 |
@@ -60,13 +60,13 @@ period_end: "2025-09-12"
 | 2025-09-12 | JAMAICA BLUE WATFORD | -31.20 | -1475.46 |
 | 2025-09-12 | JAMAICA BLUE WATFORD | -28.70 | -1504.16 |
 | 2025-09-12 | VISION EXPRESS WATFORD | -118.00 | -1622.16 |
-| 2025-09-12 | PARENTPAY E-COM <PERSON_03> | -41.00 | -1663.16 |
+| 2025-09-12 | PARENTPAY E-COM R Bridgwater | -41.00 | -1663.16 |
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,536.84 |
 | Next month's estimated interest | £41.08 |
@@ -89,4 +89,4 @@ Direct Debit of £1,663.16 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

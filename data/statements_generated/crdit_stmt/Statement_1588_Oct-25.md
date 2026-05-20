@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-09-12"
@@ -8,7 +8,7 @@ period_end: "2025-10-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 October 2025
 
@@ -23,14 +23,14 @@ period_end: "2025-10-12"
 | 2025-09-14 | UBER *TRIP HELP.UBER.COM | -16.45 | -37.04 |
 | 2025-09-15 | TUTORFUL* SHEFFIELD | -28.00 | -65.04 |
 | 2025-09-15 | TUTORFUL* SHEFFIELD | -31.50 | -96.54 |
-| 2025-09-16 | PARENTPAY E-COM <PERSON_03> | -55.00 | -151.54 |
+| 2025-09-16 | PARENTPAY E-COM R Bridgwater | -55.00 | -151.54 |
 | 2025-09-16 | FOOT LOCKER INC 4237 | -52.00 | -203.54 |
 | 2025-09-17 | SAINSBURY'S S/MKT WATFORD | -84.17 | -287.71 |
 | 2025-09-17 | FOOT LOCKER INC 4237 | -76.00 | -363.71 |
 | 2025-09-17 | TESCOS STORES 3372 | -51.33 | -415.04 |
 | 2025-09-19 | B & Q 1245 WATFORD | -41.35 | -456.39 |
 | 2025-09-19 | GITHUB, INC. SAN FRANCISCO CA | -8.00 | -464.39 |
-| 2025-09-20 | PARENTPAY E-COM <PERSON_03> | -42.50 | -506.89 |
+| 2025-09-20 | PARENTPAY E-COM R Bridgwater | -42.50 | -506.89 |
 | 2025-09-20 | OPENAI *CHATGPT SUBSCR | -20.00 | -526.89 |
 | 2025-09-21 | AWS EMEA AWS.AMAZON.CO LUX | -9.48 | -536.37 |
 | 2025-09-22 | TFL TRAVEL CH TFL.GOV.UK/CP | -12.90 | -549.27 |
@@ -42,7 +42,7 @@ period_end: "2025-10-12"
 | 2025-09-28 | APPLE.COM/BILL CORK IRL | -4.99 | -788.67 |
 | 2025-09-28 | UBER *TRIP HELP.UBER.COM | -13.40 | -802.07 |
 | 2025-09-29 | GOOGLE *YOUTUBEPREMIUM | -12.99 | -815.06 |
-| 2025-10-01 | PARENTPAY E-COM <PERSON_03> | -36.00 | -851.06 |
+| 2025-10-01 | PARENTPAY E-COM R Bridgwater | -36.00 | -851.06 |
 | 2025-10-01 | OPENAI *CHATGPT SUBSCR | -20.00 | -871.06 |
 | 2025-10-02 | GOOGLE *YOUTUBEPREMIUM | -12.99 | -884.05 |
 | 2025-10-02 | AMAZON.CO.UK *R684K9ZJ4 | -33.12 | -917.17 |
@@ -65,9 +65,9 @@ period_end: "2025-10-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,759.51 |
 | Next month's estimated interest | £35.58 |
@@ -90,4 +90,4 @@ Direct Debit of £1,440.49 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

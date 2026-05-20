@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2026-01-13"
@@ -8,7 +8,7 @@ period_end: "2026-02-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 February 2026
 
@@ -30,7 +30,7 @@ period_end: "2026-02-12"
 | 2026-01-23 | TFL TRAVEL CH TFL.GOV.UK/CP | -16.80 | -379.53 |
 | 2026-01-24 | JAMAICA BLUE WATFORD | -31.60 | -411.13 |
 | 2026-01-24 | TESCO STORES 3372 | -96.73 | -507.86 |
-| 2026-01-25 | PARENTPAY E-COM <PERSON_03> | -58.50 | -566.36 |
+| 2026-01-25 | PARENTPAY E-COM R Bridgwater | -58.50 | -566.36 |
 | 2026-01-25 | OPENAI *CHATGPT SUBSCR | -20.00 | -586.36 |
 | 2026-01-25 | SAINSBURY'S S/MKT WATFORD | -84.12 | -670.48 |
 | 2026-01-27 | PAYPAL *JUSTEATCOUK | -24.80 | -695.28 |
@@ -48,15 +48,15 @@ period_end: "2026-02-12"
 | 2026-02-10 | PAYPAL *JUSTEATCOUK | -27.40 | -1048.36 |
 | 2026-02-10 | AMZNMKTPLACE*R66EF9ZC4 | -15.67 | -1064.03 |
 | 2026-02-11 | AMAZON.CO.UK *R684K9ZJ4 | -23.76 | -1087.79 |
-| 2026-02-11 | PARENTPAY E-COM <PERSON_03> | -44.00 | -1131.79 |
+| 2026-02-11 | PARENTPAY E-COM R Bridgwater | -44.00 | -1131.79 |
 | 2026-02-12 | WELCOME BREAK NEWPORT PAGNE | -22.30 | -1154.09 |
 | 2026-02-12 | UNIQLO WATFORD | -61.75 | -1215.84 |
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,984.16 |
 | Next month's estimated interest | £30.03 |
@@ -79,4 +79,4 @@ Direct Debit of £1,215.84 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2026-04-12"
@@ -8,7 +8,7 @@ period_end: "2026-05-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 May 2026
 
@@ -30,8 +30,8 @@ period_end: "2026-05-12"
 | 2026-04-17 | VISION EXPRESS WATFORD | -44.00 | -341.24 |
 | 2026-04-18 | OPENAI *CHATGPT SUBSCR | -20.00 | -361.24 |
 | 2026-04-18 | TUTORFUL* SHEFFIELD | -31.00 | -392.24 |
-| 2026-04-19 | PARENTPAY E-COM <PERSON_03> | -27.50 | -419.74 |
-| 2026-04-19 | PARENTPAY E-COM <PERSON_03> | -40.00 | -459.74 |
+| 2026-04-19 | PARENTPAY E-COM R Bridgwater | -27.50 | -419.74 |
+| 2026-04-19 | PARENTPAY E-COM R Bridgwater | -40.00 | -459.74 |
 | 2026-04-19 | TFL TRAVEL CH TFL.GOV.UK/CP | -16.40 | -476.14 |
 | 2026-04-20 | PAYPAL *JUSTEATCOUK | -28.75 | -504.89 |
 | 2026-04-21 | TUTORFUL* SHEFFIELD | -28.00 | -532.89 |
@@ -43,7 +43,7 @@ period_end: "2026-05-12"
 | 2026-04-24 | TESCO STORES 3372 | -64.28 | -756.12 |
 | 2026-04-25 | GITHUB, INC. SAN FRANCISCO CA | -10.00 | -766.12 |
 | 2026-04-26 | SAINSBURY'S S/MKT WATFORD | -69.72 | -835.84 |
-| 2026-04-27 | PARENTPAY E-COM <PERSON_03> | -32.00 | -867.84 |
+| 2026-04-27 | PARENTPAY E-COM R Bridgwater | -32.00 | -867.84 |
 | 2026-04-28 | UNIQLO WATFORD | -52.40 | -920.24 |
 | 2026-04-28 | UNIQLO WATFORD | -39.90 | -960.14 |
 | 2026-04-28 | AMAZON.CO.UK *R684K9ZJ4 | -26.44 | -986.58 |
@@ -57,7 +57,7 @@ period_end: "2026-05-12"
 | 2026-05-02 | SAINSBURY'S S/MKT WATFORD | -61.58 | -1244.66 |
 | 2026-05-03 | TESCO STORES 3372 | -58.44 | -1303.10 |
 | 2026-05-03 | WELCOME BREAK NEWPORT PAGNE | -25.10 | -1328.20 |
-| 2026-05-04 | PARENTPAY E-COM <PERSON_03> | -48.50 | -1376.70 |
+| 2026-05-04 | PARENTPAY E-COM R Bridgwater | -48.50 | -1376.70 |
 | 2026-05-04 | WELCOME BREAK NEWPORT PAGNE | -22.15 | -1398.85 |
 | 2026-05-05 | APPLE.COM/BILL CORK IRL | -8.99 | -1407.84 |
 | 2026-05-05 | B & Q 1245 WATFORD | -57.30 | -1465.14 |
@@ -78,9 +78,9 @@ period_end: "2026-05-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,271.97 |
 | Next month's estimated interest | £47.62 |
@@ -103,4 +103,4 @@ Direct Debit of £1,928.03 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

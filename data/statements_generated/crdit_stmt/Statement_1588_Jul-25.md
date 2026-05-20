@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-06-12"
@@ -8,7 +8,7 @@ period_end: "2025-07-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 July 2025
 
@@ -31,7 +31,7 @@ period_end: "2025-07-12"
 | 2025-06-22 | HELLOFRESH UK LONDON | -44.99 | -443.00 |
 | 2025-06-24 | TESCO STORES 3372 | -118.66 | -561.66 |
 | 2025-06-24 | TUTORFUL* SHEFFIELD | -32.00 | -593.66 |
-| 2025-06-25 | PARENTPAY E-COM <PERSON_03> | -68.50 | -662.16 |
+| 2025-06-25 | PARENTPAY E-COM R Bridgwater | -68.50 | -662.16 |
 | 2025-06-26 | FOOT LOCKER INC 4237 | -64.99 | -727.15 |
 | 2025-06-27 | AMAZON.CO.UK *R684K9ZJ4 | -19.96 | -747.11 |
 | 2025-06-28 | UNIQLO WATFORD | -46.50 | -793.61 |
@@ -53,14 +53,14 @@ period_end: "2025-07-12"
 | 2025-07-10 | AMZNMKTPLACE*R66EF9ZC4 | -16.74 | -1235.69 |
 | 2025-07-11 | OPENAI *CHATGPT SUBSCR | -20.00 | -1255.69 |
 | 2025-07-11 | B & Q 1245 WATFORD | -34.95 | -1290.64 |
-| 2025-07-11 | PARENTPAY E-COM <PERSON_03> | -54.00 | -1344.64 |
+| 2025-07-11 | PARENTPAY E-COM R Bridgwater | -54.00 | -1344.64 |
 | 2025-07-12 | TFL TRAVEL CH TFL.GOV.UK/CP | -13.80 | -1358.44 |
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,841.56 |
 | Next month's estimated interest | £33.55 |
@@ -83,4 +83,4 @@ Direct Debit of £1,358.44 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

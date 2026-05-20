@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-07-13"
@@ -8,7 +8,7 @@ period_end: "2025-08-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 August 2025
 
@@ -22,7 +22,7 @@ period_end: "2025-08-12"
 | 2025-07-15 | GITHUB, INC. SAN FRANCISCO CA | -8.00 | -31.10 |
 | 2025-07-15 | SAINSBURY'S S/MKT WATFORD | -83.24 | -114.34 |
 | 2025-07-15 | UNIQLO WATFORD | -72.00 | -186.34 |
-| 2025-07-16 | PARENTPAY E-COM <PERSON_03> | -36.50 | -222.84 |
+| 2025-07-16 | PARENTPAY E-COM R Bridgwater | -36.50 | -222.84 |
 | 2025-07-17 | TUTORFUL* SHEFFIELD | -38.00 | -260.84 |
 | 2025-07-17 | APPLE.COM/BILL CORK IRL | -2.99 | -263.83 |
 | 2025-07-21 | TFL TRAVEL CH TFL.GOV.UK/CP | -14.20 | -278.03 |
@@ -34,9 +34,9 @@ period_end: "2025-08-12"
 | 2025-07-23 | JAMAICA BLUE WATFORD | -27.60 | -472.12 |
 | 2025-07-23 | FOOT LOCKER INC 4237 | -48.50 | -520.62 |
 | 2025-07-24 | TESCO STORES 3372 | -96.84 | -617.46 |
-| 2025-07-24 | PARENTPAY E-COM <PERSON_03> | -55.00 | -672.46 |
+| 2025-07-24 | PARENTPAY E-COM R Bridgwater | -55.00 | -672.46 |
 | 2025-07-25 | TUTORFUL* SHEFFIELD | -45.00 | -717.46 |
-| 2025-07-26 | PARENTPAY E-COM <PERSON_03> | -48.00 | -765.46 |
+| 2025-07-26 | PARENTPAY E-COM R Bridgwater | -48.00 | -765.46 |
 | 2025-07-27 | TUTORFUL* SHEFFIELD | -42.00 | -807.46 |
 | 2025-07-28 | GOOGLE *YOUTUBEPREMIUM | -11.99 | -819.45 |
 | 2025-07-28 | HELLOFRESH UK LONDON | -58.90 | -878.35 |
@@ -50,7 +50,7 @@ period_end: "2025-08-12"
 | 2025-08-01 | TESCO STORES 3372 | -92.45 | -1243.84 |
 | 2025-08-01 | AMAZON.CO.UK *R684K9ZJ4 | -17.48 | -1261.32 |
 | 2025-08-01 | WELCOME BREAK NEWPORT PAGNE | -12.40 | -1273.72 |
-| 2025-08-03 | PARENTPAY E-COM <PERSON_03> | -52.00 | -1325.72 |
+| 2025-08-03 | PARENTPAY E-COM R Bridgwater | -52.00 | -1325.72 |
 | 2025-08-03 | HELLOFRESH UK LONDON | -61.20 | -1386.92 |
 | 2025-08-04 | JAMAICA BLUE WATFORD | -22.40 | -1409.32 |
 | 2025-08-04 | JAMAICA BLUE WATFORD | -31.40 | -1440.72 |
@@ -73,9 +73,9 @@ period_end: "2025-08-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,255.55 |
 | Next month's estimated interest | £48.03 |
@@ -98,4 +98,4 @@ Direct Debit of £1,944.45 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

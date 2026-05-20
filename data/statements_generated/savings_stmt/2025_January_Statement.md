@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_01>"
+account_id: "12345678"
 account_type: "current"
 institution: "Halifax"
 period_start: "2025-01-01"
@@ -8,9 +8,9 @@ period_end: "2025-01-31"
 
 # Halifax — REWARD CURRENT ACCOUNT
 
-Document requested by: <PERSON_01> <ADDRESS_01>
+Document requested by: Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
-Sort Code: <SORTCODE_01> | Account Number: <ACCT_01>
+Sort Code: 11-22-33 | Account Number: 12345678
 
 ## 01 January 2025 to 31 January 2025
 
@@ -66,7 +66,7 @@ Balance on 31 January 2025: £9,568.72
 | 2025-01-23 | TESCO STORES 6753 WATFORD (DEB) | -52.18 | 3177.76 |
 | 2025-01-25 | B&M 828 WATFORD (DEB) | -14.67 | 3163.09 |
 | 2025-01-26 | PAYPAL *DISNEYPLUS (DEB) | -7.99 | 3155.10 |
-| 2025-01-27 | <PERSON_02> SAVINGS (SO) | -800.00 | 2355.10 |
+| 2025-01-27 | Pepper Potts SAVINGS (SO) | -800.00 | 2355.10 |
 | 2025-01-28 | VIRGIN MEDIA PYMTS (DD) | -56.50 | 2298.60 |
 | 2025-01-28 | WM MORRISONS STORE 586 (DEB) | -22.84 | 2275.76 |
 | 2025-01-30 | AMAZON.CO.UK (DEB) | -19.95 | 2255.81 |
@@ -80,6 +80,6 @@ DEP: Deposit | FEE: Fixed Service | FPI: Faster Payment In |
 FPO: Faster Payment Out | MPI: Mobile Payment In | MPO: Mobile Payment Out |
 PAY: Payment | SO: Standing Order | TFR: Transfer
 
-If you think something is incorrect, please contact us on <PHONE_01>.
+If you think something is incorrect, please contact us on 01632 960000.
 
 Halifax is a division of Bank of Scotland plc. (Synthetic sample — not a real statement.)

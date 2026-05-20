@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2025-02-10"
@@ -8,7 +8,7 @@ period_end: "2025-03-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 March 2025
 
@@ -25,7 +25,7 @@ period_end: "2025-03-12"
 | 2025-02-13 | JAMAICA BLUE WATFORD | -31.40 | -173.95 |
 | 2025-02-14 | VISION EXPRESS WATFORD | -39.00 | -212.95 |
 | 2025-02-15 | TFL TRAVEL CH TFL.GOV.UK/CP | -16.20 | -229.15 |
-| 2025-02-16 | PARENTPAY E-COM <PERSON_03> | -48.00 | -277.15 |
+| 2025-02-16 | PARENTPAY E-COM R Bridgwater | -48.00 | -277.15 |
 | 2025-02-16 | TESCO STORES 3372 | -92.14 | -369.29 |
 | 2025-02-16 | TFL TRAVEL CH TFL.GOV.UK/CP | -15.60 | -384.89 |
 | 2025-02-17 | HELLOFRESH UK LONDON | -54.40 | -439.29 |
@@ -52,12 +52,12 @@ period_end: "2025-03-12"
 | 2025-02-27 | TUTORFUL* SHEFFIELD | -36.00 | -1114.80 |
 | 2025-02-28 | UNIQLO WATFORD | -54.90 | -1169.70 |
 | 2025-03-02 | OPENAI *CHATGPT SUBSCR | -20.00 | -1189.70 |
-| 2025-03-04 | PARENTPAY E-COM <PERSON_03> | -44.00 | -1233.70 |
+| 2025-03-04 | PARENTPAY E-COM R Bridgwater | -44.00 | -1233.70 |
 | 2025-03-05 | APPLE.COM/BILL CORK IRL | -9.99 | -1243.69 |
 | 2025-03-05 | TUTORFUL* SHEFFIELD | -42.00 | -1285.69 |
 | 2025-03-06 | TESCO STORES 3372 | -84.52 | -1370.21 |
 | 2025-03-06 | GOOGLE *YOUTUBEPREMIUM | -12.99 | -1383.20 |
-| 2025-03-08 | PARENTPAY E-COM <PERSON_03> | -62.00 | -1445.20 |
+| 2025-03-08 | PARENTPAY E-COM R Bridgwater | -62.00 | -1445.20 |
 | 2025-03-10 | JAMAICA BLUE WATFORD | -24.60 | -1469.80 |
 | 2025-03-11 | AMZNMKTPLACE*R66EF9ZC4 | -22.49 | -1492.29 |
 | 2025-03-11 | TFL TRAVEL CH TFL.GOV.UK/CP | -15.10 | -1507.39 |
@@ -69,9 +69,9 @@ period_end: "2025-03-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,542.56 |
 | Next month's estimated interest | £40.94 |
@@ -94,4 +94,4 @@ Direct Debit of £1,657.44 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)

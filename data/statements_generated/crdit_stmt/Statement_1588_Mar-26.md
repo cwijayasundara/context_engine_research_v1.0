@@ -1,5 +1,5 @@
 ---
-account_id: "<ACCT_02>"
+account_id: "1588"
 account_type: "credit_card"
 institution: "Halifax Clarity"
 period_start: "2026-02-10"
@@ -8,7 +8,7 @@ period_end: "2026-03-12"
 
 # Halifax Clarity Credit Card Statement
 
-<PERSON_01> <ADDRESS_01>
+Mr Tony Stark 14 Avengers Close Watford Hertfordshire WD99 9ZZ
 
 ## Your credit card statement 12 March 2026
 
@@ -23,11 +23,11 @@ period_end: "2026-03-12"
 | 2026-02-13 | TESCO STORES 3372 | -112.48 | -143.91 |
 | 2026-02-14 | PAYPAL *JUSTEATCOUK | -28.40 | -172.31 |
 | 2026-02-15 | JAMAICA BLUE WATFORD | -34.60 | -206.91 |
-| 2026-02-15 | PARENTPAY E-COM <PERSON_03> | -45.00 | -251.91 |
+| 2026-02-15 | PARENTPAY E-COM R Bridgwater | -45.00 | -251.91 |
 | 2026-02-15 | SAINSBURY'S S/MKT WATFORD | -83.27 | -335.18 |
 | 2026-02-16 | TUTORFUL* SHEFFIELD | -36.00 | -371.18 |
 | 2026-02-16 | AMAZON.CO.UK *R684K9ZJ4 | -24.99 | -396.17 |
-| 2026-02-18 | PARENTPAY E-COM <PERSON_03> | -58.00 | -454.17 |
+| 2026-02-18 | PARENTPAY E-COM R Bridgwater | -58.00 | -454.17 |
 | 2026-02-18 | TFL TRAVEL CH TFL.GOV.UK/CP | -15.80 | -469.97 |
 | 2026-02-20 | OPENAI *CHATGPT SUBSCR | -20.00 | -489.97 |
 | 2026-02-21 | WELCOME BREAK NEWPORT PAGNE | -23.50 | -513.47 |
@@ -58,9 +58,9 @@ period_end: "2026-03-12"
 
 ## Account summary
 
-| Mastercard number | <CARD_01> |
+| Mastercard number | 5286 83** **** 1588 |
 |---|---|
-| Cardholder | <PERSON_01> |
+| Cardholder | Mr Tony Stark |
 | Your credit limit | £11,200.00 |
 | Available to spend | £9,733.83 |
 | Next month's estimated interest | £36.21 |
@@ -83,4 +83,4 @@ Direct Debit of £1,466.17 from your bank account on
 
 CASHBACK earned this month: £0.00 | Cashback balance: £0.00
 
-Halifax is a division of Bank of Scotland plc. Customer Services: <PHONE_01>. (Synthetic sample — not a real statement.)
+Halifax is a division of Bank of Scotland plc. Customer Services: 01632 960000. (Synthetic sample — not a real statement.)
