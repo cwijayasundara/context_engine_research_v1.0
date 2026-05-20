@@ -1,0 +1,134 @@
+# Finance ontology — Palantir / MS Fabric style binding.
+#
+# Entity types are the reusable logical model. Properties describe facts.
+# Relationships make context explicit so we don't bake it into join logic
+# every time we ask a new question.
+#
+# This file is the SOURCE OF TRUTH for the graph schema. The Cypher schema
+# (`src/ontology/schema.cypher`) is GENERATED from this file by
+# `python -m src.ontology.compile --write`. The /api/graph/schema endpoint
+# and the analyst subagent's prompt also read from here, so adding a new
+# entity / property / relationship below makes it visible everywhere.
+#
+# Per-property flags the compiler understands:
+#   identifier: true          → CREATE CONSTRAINT … REQUIRE prop IS UNIQUE
+#   index: true               → CREATE INDEX on the property
+#   pii: true                 → property is sensitive (used by redaction layer)
+#   vector: { dim, similarity } → CREATE VECTOR INDEX with given config
+
+version: 1
+namespace: finance
+
+entities:
+
+  Person:
+    description: A natural person (the user, or anyone named in a transaction).
+    properties:
+      - { name: id,    type: string, identifier: true }
+      - { name: name,  type: string, pii: true }
+      - { name: email, type: string, pii: true }
+
+  Account:
+    description: A bank or credit-card account belonging to the user.
+    properties:
+      - { name: id,            type: string, identifier: true, pii: true }   # last-4 etc.
+      - { name: institution,   type: string }
+      - { name: account_type,  type: string }                                # checking / savings / credit
+      - { name: currency,      type: string, default: USD }
+
+  Statement:
+    description: A single statement file ingested into the system.
+    properties:
+      - { name: id,           type: string, identifier: true }
+      - { name: period_start, type: date }
+      - { name: period_end,   type: date }
+      - { name: source_path,  type: string }
+      - { name: ingested_at,  type: datetime }
+
+  Transaction:
+    description: A single debit or credit on an account.
+    properties:
+      - { name: id,             type: string, identifier: true }
+      - { name: date,           type: date,   index: true }
+      - { name: amount,         type: float }       # negative = debit, positive = credit
+      - { name: description,    type: string }      # already PII-scrubbed
+      - { name: balance,        type: float }
+      - { name: year,           type: int,    index: true }
+      - { name: month,          type: string, index: true }   # YYYY-MM for fast filtering
+      - { name: fraud_score,    type: float,  index: true }   # written by src.fraud.score
+      - { name: risk_flags,     type: list }                  # short tags ("velocity", "geo_mismatch")
+      - { name: desc_embedding, type: vector, vector: { dim: 1536, similarity: cosine } }
+
+  Merchant:
+    description: A canonicalized merchant. Multiple raw descriptions collapse to one.
+    properties:
+      - { name: id,             type: string, identifier: true }
+      - { name: name,           type: string }     # canonical display name
+      - { name: canonical_name, type: string, index: true }     # for joins
+      - { name: aliases,        type: list }       # raw forms seen in descriptions
+      - { name: community,      type: int,   index: true }       # Louvain
+      - { name: pagerank,       type: float, index: true }       # PageRank
+      - { name: embedding,      type: list }                     # FastRP
+
+  Category:
+    description: Spending category (Groceries, Utilities, Income, ...).
+    properties:
+      - { name: id,   type: string, identifier: true }
+      - { name: name, type: string }
+      - { name: kind, type: string, index: true }   # income | expense | transfer
+
+  Month:
+    description: A calendar month — used as an aggregation pivot.
+    properties:
+      - { name: id,   type: string, identifier: true }   # 2025-01
+      - { name: year, type: int }
+
+  Day:
+    description: A calendar day — used for intra-day windows (velocity, card-testing).
+    properties:
+      - { name: id,      type: string, identifier: true }   # YYYY-MM-DD
+      - { name: weekday, type: int }
+      - { name: month,   type: string }                     # YYYY-MM
+
+  Location:
+    description: Geographic token extracted from a transaction description tail.
+    properties:
+      - { name: id,      type: string, identifier: true }   # lowercase
+      - { name: name,    type: string }
+      - { name: country, type: string }
+
+  DescriptionTemplate:
+    description: Fingerprint of a raw description with digits/IDs masked.
+    properties:
+      - { name: id,       type: string, identifier: true }  # sha8 of template
+      - { name: template, type: string }
+
+  Alert:
+    description: A fraud / anomaly alert against a single Transaction.
+    properties:
+      - { name: id,         type: string, identifier: true }
+      - { name: kind,       type: string, index: true }
+      - { name: severity,   type: float }
+      - { name: created_at, type: datetime }
+      - { name: rationale,  type: string }
+
+relationships:
+
+  - { type: OWNS,             from: Person,      to: Account,             cardinality: one_to_many, description: "Person owns an Account" }
+  - { type: HAS_STATEMENT,    from: Account,     to: Statement,           cardinality: one_to_many, description: "account has this statement" }
+  - { type: CONTAINS,         from: Statement,   to: Transaction,         cardinality: one_to_many, description: "statement contains this tx" }
+  - { type: FROM_ACCOUNT,     from: Transaction, to: Account,             cardinality: many_to_one, description: "tx originated from this account" }
+  - { type: AT,               from: Transaction, to: Merchant,            cardinality: many_to_one, description: "tx happened at this merchant" }
+  - { type: IN_CATEGORY,      from: Merchant,    to: Category,            cardinality: many_to_one, description: "merchant is in this category" }
+  - { type: IN_MONTH,         from: Transaction, to: Month,               cardinality: many_to_one, description: "tx happened in this month" }
+  - { type: ON_DAY,           from: Transaction, to: Day,                 cardinality: many_to_one, description: "tx happened on this day" }
+  - { type: AT_LOCATION,      from: Transaction, to: Location,            cardinality: many_to_one, description: "tx happened at this location" }
+  - { type: MATCHES_TEMPLATE, from: Transaction, to: DescriptionTemplate, cardinality: many_to_one, description: "tx description matches this template" }
+  - { type: FLAGS,            from: Alert,       to: Transaction,         cardinality: one_to_one,  description: "alert was raised for this tx" }
+
+# Wiki compiler targets — each entry below produces a markdown artifact under data/wiki/.
+wiki_targets:
+  - { entity: Merchant, template: "merchants/{canonical_name}.md" }
+  - { entity: Category, template: "categories/{name}.md" }
+  - { entity: Month,    template: "months/{id}.md" }
+  - { aggregate: annual_summary, template: "annual/{year}.md" }

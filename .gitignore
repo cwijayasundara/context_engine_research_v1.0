@@ -1,0 +1,45 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+.npm/
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Generated / cache
+data/.canonicalize_cache.json
+data/statements_generated/
+data/wiki/
+
+# Local-only deck / binary attachments (opt-in if you want them tracked)
+*.pptx
+
+# Logs
+*.log

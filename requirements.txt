@@ -1,0 +1,44 @@
+# Core LangChain stack
+deepagents==0.0.6
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-quickjs>=0.1.0          # REPL middleware (PTC + recursive workflows)
+langgraph>=0.2.0
+
+# Model provider
+openai>=1.55.0
+
+# Graph
+neo4j>=5.20.0
+
+# Ontology / parsing
+pyyaml>=6.0.2
+markdown-it-py>=3.0.0
+python-frontmatter>=1.1.0
+python-dateutil>=2.9.0
+
+# PII detection
+presidio-analyzer>=2.2.355
+presidio-anonymizer>=2.2.355
+spacy>=3.7.0
+# spaCy model — install separately:  python -m spacy download en_core_web_lg
+
+# Utilities
+pydantic>=2.9.0
+python-dotenv>=1.0.1
+rich>=13.9.0                       # nicer CLI output for the examples
+
+# Optional observability
+langsmith>=0.1.140
+
+# Web API (Phase 1 UI)
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+sse-starlette>=2.1.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+
+# Graph Data Science Python driver
+graphdatascience>=1.10.0

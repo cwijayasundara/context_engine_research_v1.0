@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "neo4j: tests that require a live Neo4j database (auto-skipped if unavailable)",
+]
+addopts = "-q --strict-markers"
