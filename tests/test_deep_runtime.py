@@ -40,3 +40,26 @@ async def test_deep_runtime_streams_adapted_agent_events(monkeypatch) -> None:
         ("result", {"answer": "answer"}),
         ("done", {}),
     ]
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_awaits_stream_coroutine(monkeypatch) -> None:
+    async def stream_events():
+        yield {"event": "final", "data": {"content": "answer"}}
+        yield {"event": "end", "data": {}}
+
+    class FakeAgent:
+        async def astream_events(self, payload, version):
+            assert version == "v3"
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("result", {"answer": "answer"}),
+        ("done", {}),
+    ]

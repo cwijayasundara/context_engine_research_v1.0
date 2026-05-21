@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import inspect
 from collections.abc import AsyncIterator
 
 from src.deep_retrieval.builder import build_deep_agent
@@ -22,7 +23,10 @@ async def run_deep_agent_stream(
     try:
         agent = build_deep_agent()
         payload = {"messages": _messages(question, history or [])}
-        async for raw in agent.astream_events(payload, version="v3"):
+        stream = agent.astream_events(payload, version="v3")
+        if inspect.isawaitable(stream):
+            stream = await stream
+        async for raw in stream:
             for event in adapt_stream_event(raw):
                 yield event
     except Exception as exc:
