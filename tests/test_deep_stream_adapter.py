@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from langchain_core.messages import AIMessage
+from langchain_core.messages import AIMessage, ToolMessage
 
 from src.deep_retrieval.stream_adapter import adapt_stream_event, extract_final_answer
 
@@ -34,7 +34,16 @@ def test_maps_tool_events() -> None:
     })
 
     assert call == [("tool_call", {"name": "graph_query", "args": {"cypher": "MATCH (n) RETURN n LIMIT 1"}})]
-    assert result == [("tool_result", {"name": "graph_query", "result": {"rows": [{"x": 1}]}})]
+    assert result == [
+        (
+            "tool_result",
+            {
+                "name": "graph_query",
+                "result": {"rows": [{"x": 1}]},
+                "preview": "1 row\nx: 1",
+            },
+        )
+    ]
 
 
 def test_maps_subagent_lifecycle_and_final_events() -> None:
@@ -75,7 +84,10 @@ def test_graph_tool_result_emits_highlight_and_update() -> None:
         },
     })
 
-    assert ("tool_result", {"name": "graph_query", "result": adapted[0][1]["result"]}) in adapted
+    assert (
+        "tool_result",
+        {"name": "graph_query", "result": adapted[0][1]["result"], "preview": "0 rows"},
+    ) in adapted
     assert ("graph_highlight", {"node_ids": ["merchant:Costco"]}) in adapted
     assert adapted[-1][0] == "graph_update"
 
@@ -108,3 +120,44 @@ def test_maps_protocol_message_events_to_tokens() -> None:
     assert adapt_stream_event(raw) == [
         ("token", {"text": "partial", "subagent": "synthesizer"}),
     ]
+
+
+def test_protocol_tool_messages_do_not_become_answer_tokens() -> None:
+    raw = {
+        "type": "event",
+        "method": "messages",
+        "params": {
+            "data": (
+                ToolMessage(
+                    content='{"rows":[{"merchant":"Tesco","spend":3582.09}]}',
+                    tool_call_id="call-1",
+                    name="graph_query",
+                ),
+                {"node": "tools"},
+            )
+        },
+    }
+
+    assert adapt_stream_event(raw) == []
+    assert extract_final_answer(raw) == ""
+
+
+def test_final_answer_extraction_skips_tool_messages() -> None:
+    raw = {
+        "type": "event",
+        "method": "values",
+        "params": {
+            "data": {
+                "messages": [
+                    ToolMessage(
+                        content='{"rows":[{"category":"Groceries"}]}',
+                        tool_call_id="call-1",
+                        name="graph_query",
+                    ),
+                    AIMessage(content="You spent GBP 9,262.02 on groceries in 2025."),
+                ],
+            },
+        },
+    }
+
+    assert extract_final_answer(raw) == "You spent GBP 9,262.02 on groceries in 2025."

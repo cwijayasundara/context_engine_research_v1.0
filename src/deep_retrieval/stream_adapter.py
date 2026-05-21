@@ -1,6 +1,7 @@
 """Adapt Deep Agents stream events to the existing SSE event contract."""
 from __future__ import annotations
 
+import json
 from typing import Any
 
 StreamEvent = tuple[str, dict[str, Any]]
@@ -35,7 +36,14 @@ def adapt_stream_event(raw: Any) -> list[StreamEvent]:
     if event in {"tool_result", "on_tool_end"}:
         output = data.get("output", data.get("result", data))
         events: list[StreamEvent] = [
-            ("tool_result", {"name": str(name), "result": output}),
+            (
+                "tool_result",
+                {
+                    "name": str(name),
+                    "result": output,
+                    "preview": _tool_preview(output),
+                },
+            ),
         ]
         if isinstance(output, dict):
             node_ids = output.get("node_ids")
@@ -108,6 +116,8 @@ def _adapt_protocol_event(raw: dict[str, Any]) -> list[StreamEvent]:
 
     if method == "messages":
         payload = data[0] if isinstance(data, tuple) and data else data
+        if not _is_ai_message(payload):
+            return []
         text = _extract_text_from_message(payload)
         return [("token", {"text": text, "subagent": "synthesizer"})] if text else []
 
@@ -120,11 +130,15 @@ def _adapt_protocol_event(raw: dict[str, Any]) -> list[StreamEvent]:
 def _extract_answer_from_value(value: Any) -> str:
     if value is None:
         return ""
+    if _is_tool_message(value) or _is_human_message(value):
+        return ""
     message_text = _extract_text_from_message(value)
     if message_text and _is_ai_message(value):
         return message_text
     if isinstance(value, dict):
-        for key in ("answer", "content", "output"):
+        if _is_tool_message(value) or _is_human_message(value):
+            return ""
+        for key in ("answer", "output"):
             if isinstance(value.get(key), str) and value[key].strip():
                 return value[key]
         messages = value.get("messages")
@@ -173,3 +187,60 @@ def _is_ai_message(message: Any) -> bool:
     if msg_type in {"ai", "assistant"}:
         return True
     return message.__class__.__name__.lower().startswith("ai")
+
+
+def _is_tool_message(message: Any) -> bool:
+    if isinstance(message, dict):
+        role = str(message.get("role") or message.get("type") or "")
+        return role == "tool"
+    return str(getattr(message, "type", "")) == "tool"
+
+
+def _is_human_message(message: Any) -> bool:
+    if isinstance(message, dict):
+        role = str(message.get("role") or message.get("type") or "")
+        return role in {"human", "user"}
+    return str(getattr(message, "type", "")) in {"human", "user"}
+
+
+def _tool_preview(output: Any) -> str:
+    if not isinstance(output, dict):
+        return _compact_json(output)
+    if "schema" in output and "examples" in output:
+        examples = output.get("examples")
+        count = len(examples) if isinstance(examples, list) else 0
+        return f"Finance graph schema loaded ({count} examples)"
+    rows = output.get("rows")
+    if isinstance(rows, list):
+        header = f"{len(rows)} row{'s' if len(rows) != 1 else ''}"
+        if not rows:
+            return header
+        lines = [header]
+        for row in rows[:5]:
+            if isinstance(row, dict):
+                parts = [
+                    f"{key}: {_format_cell(value)}"
+                    for key, value in list(row.items())[:4]
+                ]
+                lines.append(" | ".join(parts))
+            else:
+                lines.append(_format_cell(row))
+        if len(rows) > 5:
+            lines.append(f"... {len(rows) - 5} more")
+        return "\n".join(lines)
+    return _compact_json(output)
+
+
+def _format_cell(value: Any) -> str:
+    if isinstance(value, float):
+        return f"{value:,.2f}"
+    if value is None:
+        return "null"
+    return str(value)
+
+
+def _compact_json(value: Any) -> str:
+    try:
+        return json.dumps(value, default=str, ensure_ascii=False)[:500]
+    except (TypeError, ValueError):
+        return str(value)[:500]
