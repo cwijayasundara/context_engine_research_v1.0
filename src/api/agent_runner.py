@@ -33,7 +33,11 @@ from collections.abc import AsyncIterator
 from typing import Any
 
 from src.api.deps import get_driver, get_wiki_root
-from src.api.models import GraphViewNode, GraphViewRel
+from src.api.graph_context import (
+    graph_update_payload as _graph_update_payload,
+    node_ids_for_alert_rows as _highlights_from_alert_rows,
+    node_ids_for_graph_query as _highlights_from_graph_query,
+)
 from src.ontology import load_ontology
 
 log = logging.getLogger(__name__)
@@ -349,170 +353,6 @@ def _run_tool(name: str, args: dict) -> dict:
                                                          str(args.get("name", "")))
     if name == "propose_saving":  return _tool_propose_saving(args)
     return {"error": f"unknown tool {name!r}"}
-
-
-# --------------------------------------------------------------------------
-# Graph-highlight derivation
-# --------------------------------------------------------------------------
-
-_MERCHANT_KEYS = {"canonical_name", "merchant", "name"}
-_CATEGORY_KEYS = {"category", "category_name"}
-_MONTH_KEYS = {"month"}
-_MONTH_VALUE_RE = re.compile(r"\b\d{4}-\d{2}\b")
-_QUOTED_VALUE_RE = re.compile(r"""['"]([^'"]{3,80})['"]""")
-_IGNORED_CONTEXT_TERMS = {
-    "active_in",
-    "category",
-    "canonical_name",
-    "description",
-    "expense",
-    "merchant",
-    "month",
-    "name",
-    "transaction",
-}
-
-
-def _highlights_from_rows(rows: list[dict]) -> list[str]:
-    ids: list[str] = []
-    seen: set[str] = set()
-    for row in rows[:25]:
-        for k, v in row.items():
-            if not isinstance(v, str):
-                continue
-            if k in _MERCHANT_KEYS:
-                node_id = f"merchant:{v}"
-            elif k in _CATEGORY_KEYS:
-                node_id = f"category:{v}"
-            elif k in _MONTH_KEYS and re.match(r"^\d{4}-\d{2}$", v):
-                node_id = f"month:{v}"
-            else:
-                continue
-            if node_id not in seen:
-                seen.add(node_id)
-                ids.append(node_id)
-    return ids
-
-
-def _dedupe_ids(ids: list[str]) -> list[str]:
-    out: list[str] = []
-    seen: set[str] = set()
-    for node_id in ids:
-        if node_id not in seen:
-            seen.add(node_id)
-            out.append(node_id)
-    return out
-
-
-def _context_terms_from_cypher(cypher: str) -> tuple[list[str], list[str]]:
-    """Extract likely entity filters from Cypher for graph visualization.
-
-    Analyst queries often return only numeric aggregates. In that case the
-    rows do not contain node ids, but the Cypher usually still contains the
-    user's concrete context, for example ``t.month = '2026-04'`` and
-    ``toLower(c.name) CONTAINS 'coffee'``. This mirrors the context-graph
-    pattern: use the retrieved context to drive the visible subgraph.
-    """
-    months = sorted(set(_MONTH_VALUE_RE.findall(cypher)))
-    terms: list[str] = []
-    for raw in _QUOTED_VALUE_RE.findall(cypher):
-        term = raw.strip().lower()
-        if (
-            term in months
-            or term in _IGNORED_CONTEXT_TERMS
-            or _MONTH_VALUE_RE.fullmatch(term)
-            or len(term) < 3
-        ):
-            continue
-        terms.append(term)
-    return _dedupe_ids(terms), months
-
-
-def _highlights_from_graph_query(cypher: str, rows: list[dict]) -> list[str]:
-    ids = _highlights_from_rows(rows)
-    terms, months = _context_terms_from_cypher(cypher)
-    ids.extend(f"month:{month}" for month in months)
-    if not terms:
-        return _dedupe_ids(ids)
-
-    # If the LLM returned only a scalar aggregate, recover the graph context
-    # from the query predicates: matching merchants/categories/descriptions,
-    # optionally constrained to the explicit months in the Cypher.
-    try:
-        with get_driver().session() as s:
-            lookup_rows = s.run(
-                """
-                MATCH (t:Transaction)-[:AT]->(m:Merchant)-[:IN_CATEGORY]->(c:Category)
-                WHERE t.amount < 0
-                  AND (size($months) = 0 OR t.month IN $months)
-                  AND any(term IN $terms WHERE
-                    toLower(m.canonical_name) CONTAINS term OR
-                    toLower(c.name) CONTAINS term OR
-                    toLower(t.description) CONTAINS term)
-                WITH m, c, t.month AS month, sum(-t.amount) AS spend
-                ORDER BY spend DESC
-                RETURN collect(DISTINCT m.canonical_name)[0..8] AS merchants,
-                       collect(DISTINCT c.name)[0..8] AS categories,
-                       collect(DISTINCT month)[0..8] AS months
-                """,
-                terms=terms,
-                months=months,
-            ).single()
-    except Exception as exc:
-        log.info("graph highlight context lookup skipped: %s", exc)
-        return _dedupe_ids(ids)
-
-    if lookup_rows:
-        ids.extend(f"merchant:{name}" for name in (lookup_rows["merchants"] or []) if name)
-        ids.extend(f"category:{name}" for name in (lookup_rows["categories"] or []) if name)
-        ids.extend(f"month:{month}" for month in (lookup_rows["months"] or []) if month)
-    return _dedupe_ids(ids)
-
-
-def _highlights_from_alert_rows(rows: list[dict]) -> list[str]:
-    ids: list[str] = []
-    for row in rows[:25]:
-        merchant = row.get("merchant")
-        month = row.get("month")
-        if isinstance(merchant, str) and merchant:
-            ids.append(f"merchant:{merchant}")
-        if isinstance(month, str) and _MONTH_VALUE_RE.fullmatch(month):
-            ids.append(f"month:{month}")
-    return _dedupe_ids(ids)
-
-
-def _graph_update_payload(node_ids: list[str]) -> dict | None:
-    """Resolve highlighted node ids → an actual GraphUpdate the canvas can apply.
-
-    Mirrors GET /api/graph/context but stays in-process so the SSE stream
-    doesn't have to round-trip through HTTP. Returns ``None`` if nothing
-    resolves — the caller should just skip emitting ``graph_update``.
-    """
-    from src.api.routes.graph import _context_for_id  # local import → no cycle
-
-    if not node_ids:
-        return None
-    nodes: dict[str, GraphViewNode] = {}
-    rels:  dict[str, GraphViewRel]  = {}
-    try:
-        driver = get_driver()
-        for node_id in node_ids:
-            try:
-                _context_for_id(driver, node_id, nodes, rels)
-            except Exception as exc:
-                log.info("graph_update: context for %s failed: %s", node_id, exc)
-    except Exception as exc:
-        log.info("graph_update: driver unavailable: %s", exc)
-        return None
-
-    if not nodes:
-        return None
-    return {
-        "nodes":         [n.model_dump() for n in nodes.values()],
-        "relationships": [r.model_dump() for r in rels.values()],
-        "focus_ids":     node_ids,
-        "mode":          "merge",
-    }
 
 
 def _highlights_from_wiki_hits(hits: list[dict]) -> list[str]:

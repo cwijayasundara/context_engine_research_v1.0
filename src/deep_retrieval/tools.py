@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from src.api.deps import get_driver, get_wiki_root
+from src.api.graph_context import graph_update_payload, node_ids_for_graph_query
 from src.deep_retrieval.cypher_guard import CypherGuard
 from src.deep_retrieval.schema import build_schema_context, finance_cypher_examples
 from src.ontology import load_ontology
@@ -47,8 +48,8 @@ def graph_query(
     driver = get_driver()
     with driver.session() as session:
         rows = [record.data() for record in session.run(result.cypher, **(params or {}))]
-    node_ids = _node_ids_from_rows(rows)
-    return {
+    node_ids = node_ids_for_graph_query(result.cypher, rows)
+    output = {
         "purpose": purpose,
         "cypher": result.cypher,
         "params": params or {},
@@ -58,6 +59,10 @@ def graph_query(
         "row_count": len(rows),
         "node_ids": node_ids,
     }
+    update = graph_update_payload(node_ids)
+    if update:
+        output["graph_update"] = update
+    return output
 
 
 @tool("wiki_list", parse_docstring=False)
@@ -107,23 +112,3 @@ def _safe_join(root: Path, rel: str) -> Path:
     if target != root_resolved and not str(target).startswith(str(root_resolved) + "/"):
         raise PermissionError(f"path escapes wiki root: {rel}")
     return target
-
-
-def _node_ids_from_rows(rows: list[dict[str, Any]]) -> list[str]:
-    ids: list[str] = []
-    for row in rows:
-        for key, value in row.items():
-            if value is None:
-                continue
-            key_l = key.lower()
-            if key_l in {"merchant", "canonical_name"}:
-                ids.append(f"merchant:{value}")
-            elif key_l == "category":
-                ids.append(f"category:{value}")
-            elif key_l == "month":
-                ids.append(f"month:{value}")
-            elif key_l in {"alert_id", "alert"}:
-                ids.append(f"alert:{value}")
-            elif key_l in {"tx_id", "transaction"}:
-                ids.append(f"tx:{value}")
-    return list(dict.fromkeys(ids))
