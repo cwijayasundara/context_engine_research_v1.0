@@ -88,3 +88,44 @@ def test_graph_query_returns_graph_update_for_scalar_context(monkeypatch) -> Non
 
     assert result["node_ids"] == ["category:Groceries", "merchant:Tesco"]
     assert result["graph_update"]["focus_ids"] == ["category:Groceries", "merchant:Tesco"]
+
+
+def test_graph_query_parameterizes_inline_where_literals(monkeypatch) -> None:
+    executed: dict[str, object] = {}
+
+    class FakeRecord:
+        def data(self) -> dict:
+            return {"total_spend": 100.0}
+
+    class FakeSession:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return None
+
+        def run(self, cypher: str, **params):
+            executed["cypher"] = cypher
+            executed["params"] = params
+            return [FakeRecord()]
+
+    class FakeDriver:
+        def session(self):
+            return FakeSession()
+
+    monkeypatch.setattr("src.deep_retrieval.tools.get_driver", lambda: FakeDriver())
+    monkeypatch.setattr("src.deep_retrieval.tools.node_ids_for_graph_query", lambda cypher, rows: [])
+    monkeypatch.setattr("src.deep_retrieval.tools.graph_update_payload", lambda node_ids: None)
+
+    result = graph_query.func(
+        """
+        MATCH (t:Transaction)-[:AT]->(m:Merchant)-[:IN_CATEGORY]->(c:Category)
+        WHERE c.name = "Groceries" AND t.amount < 0
+        RETURN sum(-t.amount) AS total_spend
+        """,
+    )
+
+    assert 'c.name = "Groceries"' not in executed["cypher"]
+    assert "c.name = $autoparam_1" in executed["cypher"]
+    assert executed["params"] == {"autoparam_1": "Groceries"}
+    assert result["params"] == {"autoparam_1": "Groceries"}

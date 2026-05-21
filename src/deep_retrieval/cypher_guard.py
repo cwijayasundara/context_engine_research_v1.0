@@ -40,6 +40,13 @@ _WHERE_LITERAL_RE = re.compile(
     r"\bWHERE\b(?:(?!\bRETURN\b).)*=\s*(['\"])[^'\"]+\1",
     re.IGNORECASE | re.DOTALL,
 )
+_WHERE_CLAUSE_RE = re.compile(
+    r"\bWHERE\b(?P<body>.*?)(?=\bRETURN\b|\bWITH\b|\bORDER\s+BY\b|\bLIMIT\b|$)",
+    re.IGNORECASE,
+)
+_LITERAL_COMPARISON_RE = re.compile(
+    r"(?P<lhs>\b[A-Za-z_]\w*\.[A-Za-z_]\w*\s*=\s*)(?P<quote>['\"])(?P<value>[^'\"]+)(?P=quote)"
+)
 
 
 class CypherGuard:
@@ -79,13 +86,17 @@ class CypherGuard:
         params: dict | None,
         add_missing_limit: bool = False,
         default_limit: int | None = None,
+        parameterize_literals: bool = False,
     ) -> CypherValidationResult:
+        params = params if params is not None else {}
         normalized = " ".join(cypher.strip().split())
         if not normalized:
             raise CypherValidationError("empty Cypher query")
         normalized = normalized.rstrip(";")
         if _WRITE_RE.search(normalized):
             raise CypherValidationError("write operation is not allowed")
+        if parameterize_literals:
+            normalized = _parameterize_where_literals(normalized, params)
         if _WHERE_LITERAL_RE.search(normalized):
             raise CypherValidationError("user values in WHERE must use parameters")
 
@@ -150,3 +161,25 @@ class CypherGuard:
         if " RETURN " not in f" {cypher.upper()} ":
             return False
         return not bool(_AGG_RE.search(cypher))
+
+
+def _parameterize_where_literals(cypher: str, params: dict) -> str:
+    counter = 1
+
+    def replace_where(match: re.Match) -> str:
+        nonlocal counter
+        body = match.group("body")
+
+        def replace_literal(literal_match: re.Match) -> str:
+            nonlocal counter
+            key = f"autoparam_{counter}"
+            while key in params:
+                counter += 1
+                key = f"autoparam_{counter}"
+            counter += 1
+            params[key] = literal_match.group("value")
+            return f"{literal_match.group('lhs')}${key}"
+
+        return f"WHERE {_LITERAL_COMPARISON_RE.sub(replace_literal, body)}"
+
+    return _WHERE_CLAUSE_RE.sub(replace_where, cypher)

@@ -124,6 +124,23 @@ def test_rejects_literal_values_in_where_clause() -> None:
         )
 
 
+def test_can_parameterize_simple_where_literals_for_deep_agents() -> None:
+    params: dict = {"year": 2025}
+
+    result = guard().validate(
+        """
+        MATCH (t:Transaction)-[:AT]->(m:Merchant)-[:IN_CATEGORY]->(c:Category)
+        WHERE c.name = "Groceries" AND t.year = $year AND t.amount < 0
+        RETURN sum(-t.amount) AS total_spend
+        """,
+        params=params,
+        parameterize_literals=True,
+    )
+
+    assert "c.name = $autoparam_1" in result.cypher
+    assert params == {"year": 2025, "autoparam_1": "Groceries"}
+
+
 def test_schema_context_and_examples_are_grounded() -> None:
     schema = build_schema_context(load_ontology())
     examples = finance_cypher_examples()
