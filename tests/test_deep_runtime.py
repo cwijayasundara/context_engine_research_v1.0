@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import warnings
+
 import pytest
+from langchain_core._api import LangChainBetaWarning
 
 from src.deep_retrieval.runtime import run_deep_agent_stream
 
@@ -62,6 +65,58 @@ async def test_deep_runtime_awaits_stream_coroutine(monkeypatch) -> None:
         ("started", {"question": "question", "runtime": "deepagents"}),
         ("result", {"answer": "answer"}),
         ("done", {}),
+    ]
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_emits_result_from_protocol_final_state(monkeypatch) -> None:
+    async def stream_events():
+        yield {
+            "type": "event",
+            "method": "values",
+            "params": {
+                "data": {
+                    "messages": [
+                        {"role": "user", "content": "question"},
+                        {"role": "assistant", "content": "final answer"},
+                    ],
+                },
+            },
+        }
+
+    class FakeAgent:
+        def astream_events(self, payload, version):
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("result", {"answer": "final answer"}),
+        ("done", {}),
+    ]
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_errors_when_stream_has_no_visible_output(monkeypatch) -> None:
+    async def stream_events():
+        yield {"type": "event", "method": "values", "params": {"data": {"messages": []}}}
+
+    class FakeAgent:
+        def astream_events(self, payload, version):
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("error", {"message": "Deep Agents completed without a visible response"}),
     ]
 
 
@@ -151,3 +206,31 @@ async def test_deep_runtime_allows_explicit_langsmith_opt_out(monkeypatch) -> No
         ("done", {}),
     ]
     assert observed == {"LANGSMITH_TRACING": "false"}
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_suppresses_langchain_beta_stream_warnings(monkeypatch) -> None:
+    async def stream_events():
+        warnings.warn("The v3 streaming protocol on Pregel is experimental.", LangChainBetaWarning)
+        yield {"event": "end", "data": {}}
+
+    class FakeAgent:
+        async def astream_events(self, payload, version):
+            warnings.warn("The v3 streaming protocol on Pregel is experimental.", LangChainBetaWarning)
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("done", {}),
+    ]
+    assert not [
+        warning for warning in caught
+        if issubclass(warning.category, LangChainBetaWarning)
+    ]

@@ -18,6 +18,9 @@ def adapt_stream_event(raw: Any) -> list[StreamEvent]:
     if not isinstance(raw, dict):
         return []
 
+    if raw.get("type") == "event" and "method" in raw and isinstance(raw.get("params"), dict):
+        return _adapt_protocol_event(raw)
+
     event = str(raw.get("event") or raw.get("type") or "")
     name = raw.get("name") or raw.get("subagent")
     data = raw.get("data") if isinstance(raw.get("data"), dict) else {}
@@ -62,6 +65,17 @@ def adapt_stream_event(raw: Any) -> list[StreamEvent]:
     return []
 
 
+def extract_final_answer(raw: Any) -> str:
+    """Extract the latest assistant answer from Deep Agents/LangGraph state."""
+    if isinstance(raw, dict) and raw.get("type") == "event":
+        params = raw.get("params")
+        if isinstance(params, dict):
+            return _extract_answer_from_value(params.get("data"))
+    if isinstance(raw, dict):
+        return _extract_answer_from_value(raw.get("data", raw))
+    return _extract_answer_from_value(raw)
+
+
 def _is_normalized(raw: Any) -> bool:
     return (
         isinstance(raw, tuple)
@@ -85,3 +99,77 @@ def _extract_text_delta(data: dict[str, Any]) -> str:
         if data.get(key):
             return str(data[key])
     return ""
+
+
+def _adapt_protocol_event(raw: dict[str, Any]) -> list[StreamEvent]:
+    method = str(raw.get("method") or "")
+    params = raw.get("params") if isinstance(raw.get("params"), dict) else {}
+    data = params.get("data")
+
+    if method == "messages":
+        payload = data[0] if isinstance(data, tuple) and data else data
+        text = _extract_text_from_message(payload)
+        return [("token", {"text": text, "subagent": "synthesizer"})] if text else []
+
+    if method == "custom":
+        return adapt_stream_event(data)
+
+    return []
+
+
+def _extract_answer_from_value(value: Any) -> str:
+    if value is None:
+        return ""
+    message_text = _extract_text_from_message(value)
+    if message_text and _is_ai_message(value):
+        return message_text
+    if isinstance(value, dict):
+        for key in ("answer", "content", "output"):
+            if isinstance(value.get(key), str) and value[key].strip():
+                return value[key]
+        messages = value.get("messages")
+        if isinstance(messages, list):
+            for message in reversed(messages):
+                text = _extract_answer_from_value(message)
+                if text:
+                    return text
+        for nested in reversed(list(value.values())):
+            text = _extract_answer_from_value(nested)
+            if text:
+                return text
+    if isinstance(value, (list, tuple)):
+        for item in reversed(value):
+            text = _extract_answer_from_value(item)
+            if text:
+                return text
+    return ""
+
+
+def _extract_text_from_message(message: Any) -> str:
+    if isinstance(message, dict):
+        content = message.get("content") or message.get("text")
+    else:
+        content = getattr(message, "content", None)
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts: list[str] = []
+        for block in content:
+            if isinstance(block, str):
+                parts.append(block)
+            elif isinstance(block, dict):
+                text = block.get("text") or block.get("content")
+                if isinstance(text, str):
+                    parts.append(text)
+        return "".join(parts)
+    return ""
+
+
+def _is_ai_message(message: Any) -> bool:
+    if isinstance(message, dict):
+        role = str(message.get("role") or message.get("type") or "")
+        return role in {"ai", "assistant"}
+    msg_type = str(getattr(message, "type", ""))
+    if msg_type in {"ai", "assistant"}:
+        return True
+    return message.__class__.__name__.lower().startswith("ai")

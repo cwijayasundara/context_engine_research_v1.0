@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import os
+import warnings
+from contextlib import contextmanager
 from typing import Any
 
 from src.deep_retrieval.profiles import register_gemini_flash_profile
@@ -72,9 +74,22 @@ def build_deep_agent() -> Any:
         "model": model,
         "tools": tools,
         "subagents": subagents,
-        "middleware": [REPLMiddleware()],
     }
+    with _suppress_langchain_beta_warnings():
+        kwargs["middleware"] = [REPLMiddleware()]
     try:
         return create_deep_agent(instructions=SYSTEM_PROMPT, **kwargs)
     except TypeError:
         return create_deep_agent(system_prompt=SYSTEM_PROMPT, **kwargs)
+
+
+@contextmanager
+def _suppress_langchain_beta_warnings():
+    try:
+        from langchain_core._api import LangChainBetaWarning
+    except Exception:  # pragma: no cover - compatibility with older LangChain
+        LangChainBetaWarning = Warning  # type: ignore
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=LangChainBetaWarning)
+        yield

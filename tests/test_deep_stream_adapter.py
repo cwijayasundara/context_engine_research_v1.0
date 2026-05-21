@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from src.deep_retrieval.stream_adapter import adapt_stream_event
+from langchain_core.messages import AIMessage
+
+from src.deep_retrieval.stream_adapter import adapt_stream_event, extract_final_answer
 
 
 def test_preserves_already_normalized_events() -> None:
@@ -76,3 +78,33 @@ def test_graph_tool_result_emits_highlight_and_update() -> None:
     assert ("tool_result", {"name": "graph_query", "result": adapted[0][1]["result"]}) in adapted
     assert ("graph_highlight", {"node_ids": ["merchant:Costco"]}) in adapted
     assert adapted[-1][0] == "graph_update"
+
+
+def test_ignores_protocol_values_but_extracts_final_answer() -> None:
+    raw = {
+        "type": "event",
+        "method": "values",
+        "params": {
+            "data": {
+                "messages": [
+                    {"role": "user", "content": "question"},
+                    AIMessage(content="The answer is GBP 42."),
+                ],
+            },
+        },
+    }
+
+    assert adapt_stream_event(raw) == []
+    assert extract_final_answer(raw) == "The answer is GBP 42."
+
+
+def test_maps_protocol_message_events_to_tokens() -> None:
+    raw = {
+        "type": "event",
+        "method": "messages",
+        "params": {"data": (AIMessage(content="partial"), {"node": "model"})},
+    }
+
+    assert adapt_stream_event(raw) == [
+        ("token", {"text": "partial", "subagent": "synthesizer"}),
+    ]
