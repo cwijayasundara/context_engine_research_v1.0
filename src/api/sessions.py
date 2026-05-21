@@ -49,6 +49,21 @@ class _SessionStore:
                 self._data.move_to_end(sid)
             return entry
 
+    def get_or_create(self, sid: str) -> dict:
+        with self._lock:
+            entry = self._data.get(sid)
+            if entry is None:
+                entry = self._data[sid] = {
+                    "id": sid,
+                    "created_at": time.time(),
+                    "turns": [],
+                }
+                while len(self._data) > self._max:
+                    self._data.popitem(last=False)
+            else:
+                self._data.move_to_end(sid)
+            return entry
+
     def append_turn(self, sid: str, question: str, events: list[tuple[str, dict]]) -> dict:
         """Append a turn. Auto-creates the session if it doesn't exist yet."""
         with self._lock:

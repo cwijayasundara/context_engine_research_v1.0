@@ -63,3 +63,91 @@ async def test_deep_runtime_awaits_stream_coroutine(monkeypatch) -> None:
         ("result", {"answer": "answer"}),
         ("done", {}),
     ]
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_disables_langsmith_tracing_without_key(monkeypatch) -> None:
+    observed: dict[str, str | None] = {}
+
+    async def stream_events():
+        yield {"event": "end", "data": {}}
+
+    class FakeAgent:
+        def astream_events(self, payload, version):
+            observed["LANGSMITH_TRACING"] = __import__("os").environ.get("LANGSMITH_TRACING")
+            observed["LANGCHAIN_TRACING_V2"] = __import__("os").environ.get("LANGCHAIN_TRACING_V2")
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.delenv("LANGSMITH_API_KEY", raising=False)
+    monkeypatch.setenv("LANGSMITH_TRACING", "true")
+    monkeypatch.setenv("LANGCHAIN_TRACING_V2", "true")
+    monkeypatch.delenv("DEEP_AGENT_LANGSMITH_TRACING", raising=False)
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("done", {}),
+    ]
+    assert observed == {
+        "LANGSMITH_TRACING": "false",
+        "LANGCHAIN_TRACING_V2": "false",
+    }
+    assert __import__("os").environ["LANGSMITH_TRACING"] == "true"
+    assert __import__("os").environ["LANGCHAIN_TRACING_V2"] == "true"
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_keeps_langsmith_tracing_with_key(monkeypatch) -> None:
+    observed: dict[str, str | None] = {}
+
+    async def stream_events():
+        yield {"event": "end", "data": {}}
+
+    class FakeAgent:
+        def astream_events(self, payload, version):
+            observed["LANGSMITH_TRACING"] = __import__("os").environ.get("LANGSMITH_TRACING")
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setenv("LANGSMITH_API_KEY", "lsv2-valid-looking-key")
+    monkeypatch.setenv("LANGSMITH_TRACING", "true")
+    monkeypatch.delenv("DEEP_AGENT_LANGSMITH_TRACING", raising=False)
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("done", {}),
+    ]
+    assert observed == {"LANGSMITH_TRACING": "true"}
+
+
+@pytest.mark.asyncio
+async def test_deep_runtime_allows_explicit_langsmith_opt_out(monkeypatch) -> None:
+    observed: dict[str, str | None] = {}
+
+    async def stream_events():
+        yield {"event": "end", "data": {}}
+
+    class FakeAgent:
+        def astream_events(self, payload, version):
+            observed["LANGSMITH_TRACING"] = __import__("os").environ.get("LANGSMITH_TRACING")
+            return stream_events()
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "dummy")
+    monkeypatch.setenv("LANGSMITH_API_KEY", "lsv2-valid-looking-key")
+    monkeypatch.setenv("LANGSMITH_TRACING", "true")
+    monkeypatch.setenv("DEEP_AGENT_LANGSMITH_TRACING", "false")
+    monkeypatch.setattr("src.deep_retrieval.runtime.build_deep_agent", lambda: FakeAgent())
+
+    events = [event async for event in run_deep_agent_stream("question")]
+
+    assert events == [
+        ("started", {"question": "question", "runtime": "deepagents"}),
+        ("done", {}),
+    ]
+    assert observed == {"LANGSMITH_TRACING": "false"}

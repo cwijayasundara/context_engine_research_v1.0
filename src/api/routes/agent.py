@@ -10,7 +10,7 @@ import time
 from collections import Counter
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse, ServerSentEvent
 
@@ -46,10 +46,7 @@ def create_session() -> dict:
 
 @router.get("/sessions/{sid}")
 def get_session(sid: str) -> dict:
-    entry = STORE.get(sid)
-    if entry is None:
-        raise HTTPException(404, f"session {sid} not found")
-    return entry
+    return STORE.get_or_create(sid)
 
 
 @router.post("/ask")
