@@ -11,6 +11,7 @@ def build_schema_context(ontology: Ontology | None = None) -> str:
         "Use only these labels, properties, and relationship directions.",
         "Do not invent labels, relationship types, or properties.",
         "Parameterize user-provided values; do not inline quoted values in WHERE.",
+        "Include LIMIT on row-returning queries; aggregate-only queries may omit it.",
         "Labels:",
     ]
     for entity in ontology.entities:

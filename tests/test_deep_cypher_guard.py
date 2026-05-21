@@ -74,6 +74,48 @@ def test_requires_limit_for_row_returning_queries_but_not_aggregates() -> None:
     assert result.limit is None
 
 
+def test_can_append_default_limit_for_deep_agent_row_queries() -> None:
+    result = guard().validate(
+        "MATCH (t:Transaction) RETURN t.id AS id ORDER BY id",
+        params={},
+        add_missing_limit=True,
+        default_limit=25,
+    )
+
+    assert result.limit == 25
+    assert result.cypher.endswith("ORDER BY id LIMIT 25")
+
+
+def test_default_limit_repair_preserves_aggregate_queries() -> None:
+    result = guard().validate(
+        "MATCH (t:Transaction) RETURN sum(t.amount) AS spend",
+        params={},
+        add_missing_limit=True,
+        default_limit=25,
+    )
+
+    assert result.limit is None
+    assert "LIMIT" not in result.cypher
+
+
+def test_default_limit_repair_clamps_to_safe_range() -> None:
+    too_high = guard().validate(
+        "MATCH (t:Transaction) RETURN t.id AS id",
+        params={},
+        add_missing_limit=True,
+        default_limit=500,
+    )
+    too_low = guard().validate(
+        "MATCH (t:Transaction) RETURN t.id AS id",
+        params={},
+        add_missing_limit=True,
+        default_limit=-5,
+    )
+
+    assert too_high.cypher.endswith("LIMIT 100")
+    assert too_low.cypher.endswith("LIMIT 1")
+
+
 def test_rejects_literal_values_in_where_clause() -> None:
     with pytest.raises(CypherValidationError, match="parameter"):
         guard().validate(

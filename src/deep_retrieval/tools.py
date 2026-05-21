@@ -34,10 +34,16 @@ def graph_query(
     params: dict[str, Any] | None = None,
     purpose: str = "",
     expected_columns: list[str] | None = None,
+    limit: int = 50,
 ) -> dict:
     """Run a validated read-only Cypher query against Neo4j."""
     guard = CypherGuard.from_ontology(load_ontology())
-    result = guard.validate(cypher, params=params or {})
+    result = guard.validate(
+        cypher,
+        params=params or {},
+        add_missing_limit=True,
+        default_limit=limit,
+    )
     driver = get_driver()
     with driver.session() as session:
         rows = [record.data() for record in session.run(result.cypher, **(params or {}))]

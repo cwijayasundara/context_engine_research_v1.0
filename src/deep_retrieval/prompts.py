@@ -17,7 +17,8 @@ GRAPH_ANALYST_PROMPT = """You are graph_analyst.
 
 Generate safe Cypher and run it through graph_query. Use only the schema below.
 Always parameterize user values. Return compact facts and cite the Cypher result
-columns you used.
+columns you used. Include LIMIT for row-returning queries; aggregate-only
+queries such as sum/count do not need LIMIT.
 
 {schema}
 

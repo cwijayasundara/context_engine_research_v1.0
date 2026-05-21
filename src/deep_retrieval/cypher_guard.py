@@ -77,10 +77,13 @@ class CypherGuard:
         cypher: str,
         *,
         params: dict | None,
+        add_missing_limit: bool = False,
+        default_limit: int | None = None,
     ) -> CypherValidationResult:
         normalized = " ".join(cypher.strip().split())
         if not normalized:
             raise CypherValidationError("empty Cypher query")
+        normalized = normalized.rstrip(";")
         if _WRITE_RE.search(normalized):
             raise CypherValidationError("write operation is not allowed")
         if _WHERE_LITERAL_RE.search(normalized):
@@ -121,7 +124,11 @@ class CypherGuard:
 
         limit = self._extract_limit(normalized)
         if limit is None and self._returns_rows(normalized):
-            raise CypherValidationError("row-returning Cypher queries must include LIMIT")
+            if not add_missing_limit:
+                raise CypherValidationError("row-returning Cypher queries must include LIMIT")
+            requested_limit = default_limit or self.max_limit
+            limit = max(1, min(int(requested_limit), self.max_limit))
+            normalized = f"{normalized} LIMIT {limit}"
         if limit is not None and limit > self.max_limit:
             raise CypherValidationError(f"LIMIT must be <= {self.max_limit}")
 
